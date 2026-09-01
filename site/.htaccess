@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteRule ^thanks/?$ /thank-you/ [R=301,L]
+RewriteRule ^estimate\.html$ /estimate/ [R=301,L]
+RewriteRule ^privacy\.html$ /privacy/ [R=301,L]
+RewriteRule ^terms\.html$ /terms/ [R=301,L]

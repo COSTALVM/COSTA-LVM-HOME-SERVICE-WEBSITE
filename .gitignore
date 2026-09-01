@@ -1,0 +1,21 @@
+# Local/private project material
+.claude/
+LOGO DO CLIENTE/
+MATERIAL DO CLIENTE --  COLOCAR EM WEBP ANTES/
+REFERENCIA/
+test-results/
+video-banner/
+infos do cliente.txt
+ONE PAGE - COSTA LVM HOME SERVICE.md
+
+# Rejected or unpublished gallery material
+tools/site-generator/quarantine/
+
+# Dependencies and local runtime noise
+node_modules/
+.DS_Store
+Thumbs.db
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
