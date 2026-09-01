@@ -2178,6 +2178,66 @@ textarea {
   height: auto;
 }
 
+/* This page is the Instagram bio link, so it opens inside the in-app
+   browser, which eats a bar at the top and another at the bottom. All five
+   buttons have to be reachable without scrolling: at 360x740 the card
+   overflowed by 46px and cut off "Website". Tightened on short viewports
+   rather than by dropping any of the content. */
+@media (max-height: 820px), (max-width: 400px) {
+  .redirect-card {
+    gap: 0.7rem;
+    padding: clamp(1.25rem, 4vw, 2rem);
+  }
+
+  .redirect-card img {
+    width: min(230px, 58vw);
+  }
+
+  .redirect-card h1 {
+    font-size: clamp(1.15rem, 4vw, 1.5rem);
+  }
+
+  .redirect-card p {
+    font-size: var(--fs-sm);
+    line-height: 1.45;
+  }
+
+  .redirect-actions {
+    gap: 0.55rem;
+  }
+
+  .redirect-btn {
+    /* 48px keeps this well above the 24px WCAG 2.5.8 floor and still reads
+       as a comfortable thumb target. */
+    min-height: 48px;
+    padding: 0.55rem 1rem;
+    font-size: 1rem;
+  }
+}
+
+/* Second tier, for SE-class and older Android screens (360x640 and down),
+   where even the tightened card still cut off the last button. The
+   supporting line goes; the headline already carries the same message, and
+   a button nobody can reach is worth less than a sentence nobody reads. */
+@media (max-height: 680px) {
+  .redirect-card p {
+    display: none;
+  }
+
+  .redirect-card {
+    gap: 0.6rem;
+    padding: 1rem;
+  }
+
+  .redirect-card img {
+    width: min(190px, 50vw);
+  }
+
+  .redirect-card h1 {
+    font-size: 1.05rem;
+  }
+}
+
 .redirect-card h1 {
   max-width: 13em;
   font-family: var(--font-head);
@@ -2234,146 +2294,6 @@ textarea {
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-}
-
-.redirect-info {
-  display: grid;
-  gap: 1px;
-  background: rgba(201, 138, 36, 0.2);
-}
-
-.redirect-section {
-  padding: clamp(2.25rem, 6vw, 5rem) max(1.25rem, calc((100vw - 1120px) / 2));
-  background: #11100f;
-}
-
-.redirect-section:nth-child(even) {
-  background: #171411;
-}
-
-.redirect-section h2 {
-  max-width: 780px;
-  margin-bottom: 1.35rem;
-  font-family: var(--font-head);
-  font-size: clamp(1.6rem, 4vw, 2.6rem);
-  line-height: 1.08;
-}
-
-.redirect-section p {
-  max-width: 850px;
-  color: rgba(255, 255, 255, 0.75);
-  line-height: 1.72;
-}
-
-.redirect-section--intro p + p {
-  margin-top: 0.85rem;
-}
-
-.redirect-grid {
-  display: grid;
-  gap: 1rem;
-}
-
-@media (min-width: 760px) {
-  .redirect-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-.redirect-grid div,
-.redirect-faq details {
-  padding: 1.1rem;
-  border: 1px solid rgba(201, 138, 36, 0.26);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.035);
-}
-
-.redirect-grid h3 {
-  margin-bottom: 0.45rem;
-  font-family: var(--font-head);
-  font-size: 1rem;
-  color: var(--gold-200);
-}
-
-.redirect-list,
-.redirect-steps {
-  display: grid;
-  gap: 0.9rem;
-  max-width: 920px;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.redirect-list li,
-.redirect-steps li {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.8rem;
-  align-items: start;
-  color: rgba(255, 255, 255, 0.78);
-}
-
-.redirect-list svg {
-  width: 1.1rem;
-  height: 1.1rem;
-  margin-top: 0.2rem;
-  color: var(--gold-200);
-}
-
-.redirect-list strong,
-.redirect-steps strong {
-  color: #fff;
-}
-
-.redirect-steps > li > span {
-  display: grid;
-  place-items: center;
-  width: 2.4rem;
-  height: 2.4rem;
-  border: 1px solid rgba(201, 138, 36, 0.5);
-  border-radius: 50%;
-  color: var(--gold-200);
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 0.8rem;
-}
-
-.redirect-faq {
-  display: grid;
-  gap: 0.8rem;
-  max-width: 920px;
-}
-
-.redirect-faq summary {
-  cursor: pointer;
-  font-family: var(--font-head);
-  font-weight: 700;
-  color: #fff;
-}
-
-.redirect-faq p {
-  margin-top: 0.8rem;
-}
-
-.redirect-contact-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-  margin-top: 1.4rem;
-}
-
-.redirect-contact-row a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 0.65rem 1rem;
-  /* was rgba(255,122,0,.45) — the orange came from the TopGutter reference
-     that inspired this page. This client's accent is the logo gold. */
-  border: 1px solid var(--gold-400);
-  border-radius: 999px;
-  color: #fff;
-  text-decoration: none;
 }
 
 /* Centred page hero — used by /estimate/, where the page is one form and a
@@ -2650,18 +2570,14 @@ textarea {
 @media (max-width: 760px) {
   /* Centre the reading column. Deliberately excluded below: form fields
      (a centred label floating over a left-aligned input reads as broken),
-     and the legal pages, where the text is long-form prose. */
+     the legal pages, where the text is long-form prose, and the inside of
+     cards — see the block after this one. */
   .section-head,
   .hero__copy,
   .lede,
   .hero__sub,
   .trust-item,
-  .reason,
   .step,
-  .slide__body,
-  .faq details,
-  .footer-col,
-  .footer-bottom,
   .gallery-head,
   .about-grid__copy {
     text-align: center;
@@ -2674,16 +2590,19 @@ textarea {
   }
 
   .trust-item,
-  .reason,
-  .step,
-  .slide__body {
+  .step {
     align-items: center;
+  }
+
+  /* Buttons follow the text. A centred heading over a left-hugging button
+     is the mismatch that made the mobile layout look unfinished. */
+  .btn-row {
+    justify-content: center;
   }
 
   /* Icons and badges that sat at the start of a left-aligned block have to
      come to the middle too, or the centring looks accidental. */
   .trust-item svg,
-  .reason svg,
   .eyebrow {
     margin-inline: auto;
   }
@@ -2693,6 +2612,68 @@ textarea {
   .estimate-page .lede {
     text-align: center;
     margin-inline: auto;
+  }
+
+  /* Card interiors stay left-aligned: a card is a block of reading, and its
+     bullet lists and paragraphs are far easier to scan ragged-right. The
+     card's own button stays with its text rather than following the
+     centred page rhythm. */
+  .slide__body,
+  .slide__body p,
+  .slide__body ul,
+  .slide__body li,
+  .reason,
+  .reason p,
+  .faq details,
+  .faq summary,
+  .faq details p,
+  .faq details li,
+  .service-detail__copy,
+  .service-detail__copy p,
+  .service-detail__copy li {
+    text-align: left;
+  }
+
+  .slide__body,
+  .reason,
+  .service-detail__copy {
+    align-items: flex-start;
+  }
+
+  .slide__body .btn-row,
+  .reason .btn-row,
+  .service-detail__cta {
+    justify-content: flex-start;
+  }
+
+  .reason svg {
+    margin-inline: 0;
+  }
+
+  /* Footer: everything centred, including the logo, the column headings,
+     the link lists and the address. */
+  .site-footer,
+  .footer-grid,
+  .footer-grid h3,
+  .footer-grid ul,
+  .footer-grid li,
+  .footer-grid p,
+  .footer-grid address,
+  .footer-bottom {
+    text-align: center;
+  }
+
+  .footer-grid {
+    justify-items: center;
+  }
+
+  .footer-logo,
+  .footer-logo img {
+    margin-inline: auto;
+  }
+
+  .footer-bottom {
+    justify-content: center;
   }
 
   /* Form stays left-aligned — see note above. */

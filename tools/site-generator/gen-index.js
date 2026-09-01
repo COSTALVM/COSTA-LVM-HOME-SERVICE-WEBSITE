@@ -1,8 +1,25 @@
 ﻿const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const ROOT = 'C:\\Users\\felipefreitas_trajet\\Desktop\\COSTA LVM HOME SERVICE';
 const SITE = path.join(ROOT, 'site');
+
+/* Cache busting.
+   main.css and main.js ship under fixed names, so a browser holding an old
+   copy has no way to know the file changed. Stamping the content hash into
+   the URL makes the URL itself change whenever the file does — which is what
+   lets .htaccess cache these for a year without ever serving a stale build.
+   Miss this and either the cache is useless or the deploy is invisible. */
+function assetVersion(relativePath) {
+  const full = path.join(SITE, relativePath);
+  if (!fs.existsSync(full)) return '';
+  const hash = crypto.createHash('sha1').update(fs.readFileSync(full)).digest('hex');
+  return '?v=' + hash.slice(0, 8);
+}
+
+const CSS_V = assetVersion(path.join('assets', 'css', 'main.css'));
+const JS_V = assetVersion(path.join('assets', 'js', 'main.js'));
 const manifest = JSON.parse(
   fs.readFileSync(path.join(SITE, 'assets', 'img', 'gallery', 'manifest.json'), 'utf8')
 );
@@ -476,7 +493,7 @@ ${SERVICES.slice(0, 5).map((s) => `            <li><a href="${prefix}services/#$
     <a class="btn btn--primary" href="${estimatePath(prefix)}">Free estimate</a>
   </nav>
 
-  <script src="${prefix}assets/js/main.js" defer></script>`;
+  <script src="${prefix}assets/js/main.js${JS_V}" defer></script>`;
 }
 
 function head({ title, description, canonical, prefix = '', schema = [], extraHead = '' }) {
@@ -501,7 +518,7 @@ ${gtmHead()}
 <link rel="preload" href="${prefix}assets/fonts/poppins-700-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${prefix}assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${prefix}assets/fonts/poppins-300-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="${prefix}assets/css/main.css">
+<link rel="stylesheet" href="${prefix}assets/css/main.css${CSS_V}">
 <link rel="icon" href="${prefix}favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0a0908">
 ${extraHead}

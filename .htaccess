@@ -39,3 +39,50 @@ AddType text/markdown .md
     Header set Link "</privacy/>; rel=\"privacy-policy\", </terms/>; rel=\"terms-of-service\", </index.md>; rel=\"describedby\"; type=\"text/markdown\""
   </FilesMatch>
 </IfModule>
+
+# ---------------------------------------------------------------------------
+# Caching
+#
+# HTML and markdown: never cached. They are small, they change on every
+# deploy, and a stale page is the difference between a lead seeing the
+# current phone number or an old one. no-cache means "revalidate", not "do
+# not store", so a 304 still costs almost nothing.
+#
+# CSS and JS: cached hard, for a year, because gen-index.js stamps a content
+# hash into their URLs (main.css?v=abc12345). Edit the file and the URL
+# changes, so there is no such thing as a stale asset. Without that hash this
+# block would be actively harmful.
+#
+# Images, video and fonts: cached for a month. Their names are stable, so a
+# photo replaced under the same filename takes up to 30 days to reach a
+# returning visitor — the swap should come with a new filename.
+# ---------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|md)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  <FilesMatch "\.(webp|jpg|jpeg|png|gif|svg|ico|mp4|webm)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+
+  <FilesMatch "\.(woff2|woff|ttf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+  # Fallback for hosts that run mod_expires but not mod_headers.
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/markdown "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType video/mp4 "access plus 1 month"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>

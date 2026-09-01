@@ -337,13 +337,6 @@ const redirectWhy = [
   ['Flexible operating hours', 'Extended weekday hours and Saturday availability.'],
 ];
 
-const redirectSteps = [
-  ['Initial quote & planning', 'Contact us to discuss your goals, receive expert guidance, and get an accurate project estimate.'],
-  ['Site preparation & protection', 'We set up protective floor coverings and shield your furniture before tools ever touch the space.'],
-  ['Expert tradeswork', 'Our experienced crew executes your carpentry, painting, remodeling, or installation project with high precision.'],
-  ['Post-job deep clean', 'We finish every project with a thorough interior clean, leaving your home spotless and ready to enjoy.'],
-];
-
 const redirectIcon = {
   phone: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.5 3 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.2-.3 1.3.4 2.6.6 4 .6.7 0 1.2.5 1.2 1.2v3.5c0 .7-.5 1.2-1.2 1.2C10.7 21.4 2.6 13.3 2.6 3.4c0-.7.5-1.2 1.2-1.2h3.5c.7 0 1.2.5 1.2 1.2 0 1.4.2 2.8.6 4 .1.4 0 .9-.3 1.2l-2.2 2.2Z"/></svg>',
   email: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4h13A2.5 2.5 0 0 1 21 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5v-11Zm2.2.1 6.8 5.2 6.8-5.2"/></svg>',
@@ -376,60 +369,6 @@ const redirectPage = `${head({
           ${redirectButton('../', 'Website', 'website')}
         </div>
       </div>
-    </section>
-
-    <section class="redirect-info" aria-label="COSTA LVM service information">
-      <article class="redirect-section redirect-section--intro">
-        <h2>Who we are</h2>
-        <p>COSTA LVM Home Service is a family-owned company built on two decades of hands-on experience in Cape Cod. Led by Marco Aur&eacute;lio, we treat every residence with the utmost respect, care, and attention to detail.</p>
-        <p>Unlike contractors who leave dirt and dust behind, we combine skilled finish carpentry and remodeling with professional interior cleanup. We protect your furniture, safeguard your floors, and maintain an organized workspace from start to finish.</p>
-      </article>
-
-      <article class="redirect-section">
-        <h2>Complete remodeling, painting &amp; home care services</h2>
-        <div class="redirect-grid">
-${redirectServices.map((service) => `          <div>
-            <h3>${service.name}</h3>
-            <p>${service.blurb}</p>
-          </div>`).join('\n')}
-        </div>
-      </article>
-
-      <article class="redirect-section">
-        <h2>Why homeowners, realtors &amp; investors choose COSTA LVM</h2>
-        <ul class="redirect-list">
-${redirectWhy.map(([head, body]) => `          <li>${CHECK}<span><strong>${head}:</strong> ${body}</span></li>`).join('\n')}
-        </ul>
-      </article>
-
-      <article class="redirect-section">
-        <h2>Simple execution from first contact to final handover</h2>
-        <ol class="redirect-steps">
-${redirectSteps.map(([head, body], index) => `          <li>
-            <span>${String(index + 1).padStart(2, '0')}</span>
-            <div><strong>${head}</strong><p>${body}</p></div>
-          </li>`).join('\n')}
-        </ol>
-      </article>
-
-      <article class="redirect-section">
-        <h2>Frequently asked questions</h2>
-        <div class="redirect-faq">
-${FAQS.map((faq) => `          <details>
-            <summary>${faq.q}</summary>
-            <p>${faq.a}</p>
-          </details>`).join('\n')}
-        </div>
-      </article>
-
-      <article class="redirect-section redirect-section--contact">
-        <h2>Service areas &amp; contact</h2>
-        <p>Serving Cape Cod and nearby off-Cape communities: ${TOWNS.join(', ')}.</p>
-        <div class="redirect-contact-row">
-          <a href="tel:${PHONE_HREF}">${PHONE_DISPLAY}</a>
-          <a href="mailto:${EMAIL}">${EMAIL}</a>
-        </div>
-      </article>
     </section>
   </main>
 </body>
@@ -722,6 +661,53 @@ AddType text/markdown .md
   <FilesMatch "^index\\.(html|md)$">
     Header set Link "</privacy/>; rel=\\"privacy-policy\\", </terms/>; rel=\\"terms-of-service\\", </index.md>; rel=\\"describedby\\"; type=\\"text/markdown\\""
   </FilesMatch>
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Caching
+#
+# HTML and markdown: never cached. They are small, they change on every
+# deploy, and a stale page is the difference between a lead seeing the
+# current phone number or an old one. no-cache means "revalidate", not "do
+# not store", so a 304 still costs almost nothing.
+#
+# CSS and JS: cached hard, for a year, because gen-index.js stamps a content
+# hash into their URLs (main.css?v=abc12345). Edit the file and the URL
+# changes, so there is no such thing as a stale asset. Without that hash this
+# block would be actively harmful.
+#
+# Images, video and fonts: cached for a month. Their names are stable, so a
+# photo replaced under the same filename takes up to 30 days to reach a
+# returning visitor — the swap should come with a new filename.
+# ---------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  <FilesMatch "\\.(html|md)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+
+  <FilesMatch "\\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  <FilesMatch "\\.(webp|jpg|jpeg|png|gif|svg|ico|mp4|webm)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+
+  <FilesMatch "\\.(woff2|woff|ttf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+  # Fallback for hosts that run mod_expires but not mod_headers.
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/markdown "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType video/mp4 "access plus 1 month"
+  ExpiresByType font/woff2 "access plus 1 year"
 </IfModule>
 `
 );

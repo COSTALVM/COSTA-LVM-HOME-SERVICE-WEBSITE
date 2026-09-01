@@ -48,6 +48,72 @@
       status.textContent = message || "";
     }
 
+    /* Lead mirror -> the agency's own collector.
+
+       Web3Forms stays the primary send: it is what reaches the client's
+       inbox, and it alone decides whether the visitor sees success or the
+       error message. This copy is strictly additive and deliberately
+       silent — if the collector is down, slow, or blocked, the visitor
+       must never find out and the lead must still land in the inbox.
+
+       Three details carry the weight:
+       - keepalive, because the success path navigates to /thank-you/ about
+         1.3s later. A normal fetch is cancelled by that navigation and the
+         lead is lost; keepalive lets the request outlive the page.
+       - _id is generated once per submission, so the retry of a failed
+         send is recognised as the same lead instead of a second one.
+       - the Web3Forms plumbing is stripped. access_key is a credential and
+         botcheck/subject/redirect are transport details, not answers the
+         visitor gave; anything left in the payload would become a lead
+         field. */
+    var LEAD_HOOK =
+      "https://ironwarden.eusouts.com/hooks/leads/IwF8kIPtEXZne-B6lHXSxQI_yh3L7rnonl3aTUlZtx4";
+    var SKIP_FIELDS = ["access_key", "subject", "redirect", "botcheck", "from_name"];
+    var leadId = "";
+
+    function newLeadId() {
+      if (window.crypto && typeof window.crypto.randomUUID === "function") {
+        return window.crypto.randomUUID();
+      }
+      return (
+        Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10)
+      );
+    }
+
+    function mirrorLead(theForm) {
+      try {
+        if (!window.fetch || typeof FormData === "undefined") return;
+
+        // Same id across retries of one submission, new id per submission.
+        if (!leadId) leadId = newLeadId();
+
+        var payload = new FormData();
+        var source = new FormData(theForm);
+
+        source.forEach(function (value, name) {
+          if (SKIP_FIELDS.indexOf(name) !== -1) return;
+          if (name.charAt(0) === "_") return; // reserved namespace
+          payload.append(name, value);
+        });
+
+        payload.append("_id", leadId);
+        payload.append("_form", theForm.id || "estimate-form");
+        payload.append("_page", document.title);
+        payload.append("_page_url", window.location.href);
+
+        fetch(LEAD_HOOK, {
+          method: "POST",
+          body: payload,
+          keepalive: true,
+          mode: "cors",
+        }).catch(function () {
+          /* Silent on purpose: Web3Forms owns the visitor-facing outcome. */
+        });
+      } catch (error) {
+        /* Never let the mirror break the real submission. */
+      }
+    }
+
     function fieldError(input, message) {
       var slot = document.getElementById(input.name + "-error");
       if (slot) slot.textContent = message || "";
@@ -108,6 +174,10 @@
 
       setStatus("", "Sending...");
       if (submitBtn) submitBtn.disabled = true;
+
+      // Mirror the lead to the agency's own collector before the primary
+      // send, so it is already in flight while Web3Forms works.
+      mirrorLead(form);
 
       fetch(form.action, {
         method: "POST",
