@@ -613,9 +613,14 @@ ${extra ? `
 /* ---------------- page ---------------- */
 
 const html = `${head({
-  title: 'Cape Cod Carpentry, Remodeling & Cleaning | COSTA LVM Home Service',
+  /* Title and description carry the region and an offer, because the job of
+     the SERP entry is the click and the job of the page is the conversion.
+     Every claim here is verified in project-context.md §2 — 20 years,
+     family-owned, fully insured, free estimates, same-day reply. No licence
+     number is implied anywhere, because there is not one yet. */
+  title: 'Cape Cod Remodeling & Carpentry — Free Estimate | COSTA LVM',
   description:
-    '20 years of trusted finish carpentry, bathroom remodeling, and post-construction cleaning in Cape Cod. Fully insured, family-owned, and detail-oriented.',
+    'Family-owned, fully insured, 20 years on Cape Cod. Remodels, finish carpentry and post-construction cleanup, Barnstable to Plymouth. Free estimate.',
   canonical: SITE_URL + '/',
   schema: [business, faqSchema],
 })}${header()}
@@ -889,4 +894,4 @@ fs.writeFileSync(path.join(SITE, 'index.html'), html);
 console.log('index.html -', (html.length / 1024).toFixed(1), 'KB |', galleryItems.length, 'gallery figures');
 
 module.exports = { head, header, footer, btn, img, stockImg, estimateForm, estimatePath,
-  bySlug, ARROW, CHECK, SERVICES, SITE_URL, PHONE_DISPLAY, PHONE_HREF, EMAIL, TOWNS };
+  bySlug, ARROW, CHECK, SERVICES, FAQS, SITE_URL, PHONE_DISPLAY, PHONE_HREF, EMAIL, TOWNS };

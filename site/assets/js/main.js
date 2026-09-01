@@ -541,4 +541,240 @@
       });
     }
   });
+
+  /* ------------------------------------------------------------------
+     Entrance reveal
+
+     The markup ships visible. This module marks <html> with .js-reveal,
+     which is what activates the hidden state in CSS — so if this module
+     throws, or JS never runs, or a crawler reads the page, everything is
+     still on screen. Only opacity and transform move, so no layout and no
+     CLS. Each element is unobserved once it lands: this is a one-way trip,
+     never a re-animation on scroll back up.
+     ------------------------------------------------------------------ */
+
+  runModule("reveal", function () {
+    if (reduceMotion) return;
+    if (!("IntersectionObserver" in window)) return;
+
+    // Single elements, then groups whose children cascade.
+    var singles = document.querySelectorAll(
+      ".section-head, .about-grid__media, .about-grid__copy, .contact-card," +
+        " .page-hero, .service-detail__figure, .service-detail__copy, .contact-map"
+    );
+    var groups = document.querySelectorAll(
+      ".trust-band .container, .reasons, .steps, .faq, .gallery-filters," +
+        " .footer-grid, .service-index"
+    );
+
+    if (!singles.length && !groups.length) return;
+
+    document.documentElement.classList.add("js-reveal");
+
+    singles.forEach(function (el) {
+      el.setAttribute("data-reveal", "");
+    });
+    groups.forEach(function (el) {
+      el.setAttribute("data-reveal-group", "");
+    });
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-in");
+          observer.unobserve(entry.target);
+        });
+      },
+      // Fire a little before the element reaches the viewport, so the
+      // motion reads as the page settling rather than as a late pop.
+      { rootMargin: "0px 0px -12% 0px", threshold: 0.08 }
+    );
+
+    singles.forEach(function (el) {
+      observer.observe(el);
+    });
+    groups.forEach(function (el) {
+      observer.observe(el);
+    });
+
+    // Anything already on screen reveals immediately, otherwise the first
+    // fold would sit invisible until the user scrolls.
+    //
+    // This runs synchronously rather than inside requestAnimationFrame: rAF
+    // does not run in a background tab, and neither does IntersectionObserver
+    // reliably — so an rAF fallback leaves the page blank for anyone who
+    // opens it in a background tab and switches to it later.
+    function revealVisible() {
+      var all = document.querySelectorAll("[data-reveal], [data-reveal-group]");
+      all.forEach(function (el) {
+        var box = el.getBoundingClientRect();
+        if (box.top < window.innerHeight && box.bottom > 0) {
+          el.classList.add("is-in");
+          observer.unobserve(el);
+        }
+      });
+    }
+
+    revealVisible();
+    window.addEventListener("load", revealVisible, { once: true });
+
+    // Last resort: if the page was hidden the whole time, nothing above has
+    // measured anything useful. Reveal on the first sight of the document.
+    if (document.hidden) {
+      document.addEventListener("visibilitychange", function onShow() {
+        if (document.hidden) return;
+        document.removeEventListener("visibilitychange", onShow);
+        revealVisible();
+      });
+    }
+  });
+
+  /* ------------------------------------------------------------------
+     Gallery lightbox
+
+     Built on <dialog>: the browser supplies the top layer, the focus trap,
+     the backdrop and Esc. The figures ship as plain images, and this module
+     promotes each one to a button — so without JS the gallery is still a
+     gallery, just not zoomable.
+     ------------------------------------------------------------------ */
+
+  runModule("lightbox", function () {
+    var figures = document.querySelectorAll(".gallery figure");
+    if (!figures.length) return;
+    if (typeof HTMLDialogElement === "undefined") return; // no <dialog>, no promotion
+
+    var items = [];
+
+    var dialog = document.createElement("dialog");
+    dialog.className = "lightbox";
+    dialog.setAttribute("aria-label", "Project photo");
+    dialog.innerHTML =
+      '<div class="lightbox__frame">' +
+      '<img class="lightbox__img" alt="">' +
+      '<p class="lightbox__caption"></p>' +
+      '<button type="button" class="lightbox__close" aria-label="Close photo">' +
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
+      "</button>" +
+      '<button type="button" class="lightbox__nav lightbox__nav--prev" aria-label="Previous photo">' +
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>' +
+      "</button>" +
+      '<button type="button" class="lightbox__nav lightbox__nav--next" aria-label="Next photo">' +
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>' +
+      "</button>" +
+      "</div>";
+    document.body.appendChild(dialog);
+
+    var imgEl = dialog.querySelector(".lightbox__img");
+    var capEl = dialog.querySelector(".lightbox__caption");
+    var prevBtn = dialog.querySelector(".lightbox__nav--prev");
+    var nextBtn = dialog.querySelector(".lightbox__nav--next");
+    var current = 0;
+
+    figures.forEach(function (fig) {
+      var img = fig.querySelector("img");
+      if (!img) return;
+
+      var caption = fig.querySelector("figcaption");
+      // srcset gives us a bigger file for free; fall back to the src.
+      var large = img.getAttribute("src");
+      var srcset = img.getAttribute("srcset");
+      if (srcset) {
+        var candidates = srcset.split(",");
+        var last = candidates[candidates.length - 1].trim().split(/\s+/)[0];
+        if (last) large = last;
+      }
+
+      var index = items.length;
+      items.push({
+        src: large,
+        alt: img.getAttribute("alt") || "",
+        caption: caption ? caption.textContent.trim() : "",
+        figure: fig
+      });
+
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "gallery__open";
+      button.setAttribute(
+        "aria-label",
+        "Open larger photo: " + (img.getAttribute("alt") || "project photo")
+      );
+      img.parentNode.insertBefore(button, img);
+      button.appendChild(img);
+
+      button.addEventListener("click", function () {
+        open(index);
+      });
+    });
+
+    if (!items.length) return;
+
+    function visibleNeighbour(from, direction) {
+      // The gallery filters and paginates, so the next photo in the DOM may
+      // be hidden. Step until we find one the user can actually see.
+      var i = from + direction;
+      while (i >= 0 && i < items.length) {
+        if (items[i].figure.offsetParent !== null) return i;
+        i += direction;
+      }
+      return -1;
+    }
+
+    function show(index) {
+      var item = items[index];
+      if (!item) return;
+      current = index;
+      imgEl.setAttribute("src", item.src);
+      imgEl.setAttribute("alt", item.alt);
+      capEl.textContent = item.caption;
+      capEl.hidden = !item.caption;
+      prevBtn.disabled = visibleNeighbour(index, -1) === -1;
+      nextBtn.disabled = visibleNeighbour(index, 1) === -1;
+    }
+
+    function open(index) {
+      show(index);
+      if (typeof dialog.showModal === "function") dialog.showModal();
+      else dialog.setAttribute("open", "");
+    }
+
+    function move(direction) {
+      var next = visibleNeighbour(current, direction);
+      if (next !== -1) show(next);
+    }
+
+    prevBtn.addEventListener("click", function () {
+      move(-1);
+    });
+    nextBtn.addEventListener("click", function () {
+      move(1);
+    });
+    dialog.querySelector(".lightbox__close").addEventListener("click", function () {
+      dialog.close();
+    });
+
+    dialog.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        move(-1);
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        move(1);
+      }
+    });
+
+    // Clicking the backdrop closes. The dialog fills the whole viewport as
+    // far as the event target is concerned, so compare against its box.
+    dialog.addEventListener("click", function (e) {
+      if (e.target !== dialog) return;
+      var box = dialog.getBoundingClientRect();
+      var inside =
+        e.clientX >= box.left &&
+        e.clientX <= box.right &&
+        e.clientY >= box.top &&
+        e.clientY <= box.bottom;
+      if (!inside) dialog.close();
+    });
+  });
 })();

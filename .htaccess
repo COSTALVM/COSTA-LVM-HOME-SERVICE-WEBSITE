@@ -3,3 +3,39 @@ RewriteRule ^thanks/?$ /thank-you/ [R=301,L]
 RewriteRule ^estimate\.html$ /estimate/ [R=301,L]
 RewriteRule ^privacy\.html$ /privacy/ [R=301,L]
 RewriteRule ^terms\.html$ /terms/ [R=301,L]
+RewriteRule ^redirect\.html$ /redirect/ [R=301,L]
+
+# ---------------------------------------------------------------------------
+# Markdown for agents (content negotiation)
+# An agent that asks for text/markdown gets the .md twin written by
+# gen-markdown.js; a browser asks for text/html and never matches these rules.
+# ---------------------------------------------------------------------------
+AddType text/markdown .md
+
+<IfModule mod_rewrite.c>
+  RewriteCond %{HTTP:Accept} text/markdown [NC]
+  RewriteCond %{DOCUMENT_ROOT}/index.md -f
+  RewriteRule ^$ /index.md [L]
+
+  RewriteCond %{HTTP:Accept} text/markdown [NC]
+  RewriteCond %{DOCUMENT_ROOT}/$1/index.md -f
+  RewriteRule ^(services|estimate|privacy|terms|redirect)/?$ /$1/index.md [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Without Vary, a shared cache hands the markdown to a browser (or the
+  # HTML to an agent) depending on whoever asked first.
+  <FilesMatch "\.(html|md)$">
+    Header append Vary Accept
+  </FilesMatch>
+
+  # -------------------------------------------------------------------------
+  # Link headers (RFC 8288)
+  # Only IANA-registered relation types, and only resources that exist. No
+  # api-catalog or service-doc: this is a contractor site with no API, and
+  # advertising one that does not exist is worse than advertising nothing.
+  # -------------------------------------------------------------------------
+  <FilesMatch "^index\.(html|md)$">
+    Header set Link "</privacy/>; rel=\"privacy-policy\", </terms/>; rel=\"terms-of-service\", </index.md>; rel=\"describedby\"; type=\"text/markdown\""
+  </FilesMatch>
+</IfModule>

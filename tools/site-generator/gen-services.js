@@ -2,7 +2,7 @@
 const path = require('path');
 const base = require('./gen-index.js');
 
-const { head, header, footer, btn, estimateForm, estimatePath, ARROW, SITE_URL, PHONE_HREF, PHONE_DISPLAY, TOWNS, img, stockImg } = base;
+const { head, header, footer, btn, estimateForm, ARROW, CHECK, SITE_URL, PHONE_HREF, PHONE_DISPLAY, EMAIL, TOWNS, FAQS, img, stockImg } = base;
 
 const ROOT = 'C:\\Users\\felipefreitas_trajet\\Desktop\\COSTA LVM HOME SERVICE';
 const SITE = path.join(ROOT, 'site');
@@ -198,9 +198,9 @@ const serviceList = {
 /* ---------------- page ---------------- */
 
 const html = `${head({
-  title: 'Remodeling, Painting & Cleaning Services | Cape Cod, MA',
+  title: 'Remodeling & Carpentry Services on Cape Cod | Free Estimate',
   description:
-    'Bathroom and kitchen remodeling, finish carpentry, cabinets, windows and doors, interior and exterior painting, power washing and house cleaning across Cape Cod.',
+    'Nine trades, one crew: bathroom and kitchen remodels, cabinets, windows, doors, painting and post-construction cleaning on Cape Cod. Free estimate.',
   canonical: SITE_URL + '/services/',
   prefix: '../',
   schema: [breadcrumb, serviceList],
@@ -233,11 +233,14 @@ ${DETAIL.map(
       </div>
     </section>
 
-    <div>
-      <div class="container">
+${/* One fold per service, alternating light and dark exactly like the home.
+      Each is its own full-bleed <section> rather than nine articles stacked
+      inside one container — that is what makes the ground actually change. */ ''}
 ${DETAIL.map(
-  (s, i) => `        <article class="service-detail" id="${s.id}">
-          <div>
+  (s, i) => `    <section class="section${i % 2 === 0 ? ' section--light' : ''} service-fold" id="${s.id}">
+      <div class="container">
+        <article class="service-detail">
+          <div class="service-detail__copy">
             <span class="step__label">${String(i + 1).padStart(2, '0')} &mdash; Service</span>
             <h2>${s.name}</h2>
 ${s.body.map((p) => `            <p>${p}</p>`).join('\n')}
@@ -255,10 +258,10 @@ ${s.bullets.map((b) => `              <li>${b}</li>`).join('\n')}
                 : stockImg(s.media.slug, s.media.alt, '(min-width:880px) 46vw, 100vw', '../')
             }
           </figure>
-        </article>`
-).join('\n')}
+        </article>
       </div>
-    </div>
+    </section>`
+).join('\n')}
 
     <section class="section cta-band">
       <div class="container">
@@ -284,14 +287,14 @@ fs.writeFileSync(path.join(SITE, 'services', 'index.html'), html);
 /* ---------------- estimate ---------------- */
 
 const estimate = `${head({
-  title: 'Request a Free Estimate | COSTA LVM Home Service',
-  description: 'Request a free estimate for remodeling, carpentry, painting, power washing or house cleaning with COSTA LVM Home Service on Cape Cod.',
+  title: 'Free Estimate on Cape Cod | COSTA LVM Home Service',
+  description: 'Tell us the project, the town and the timing. Free estimates across Cape Cod, Barnstable to Plymouth — we usually reply the same working day.',
   canonical: SITE_URL + '/estimate/',
   prefix: '../',
 })}${header('../')}
 
   <main id="main">
-    <section class="page-hero page-hero--compact">
+    <section class="page-hero page-hero--compact page-hero--center">
       <div class="container">
         <ol class="breadcrumb">
           <li><a href="../">Home</a></li>
@@ -318,6 +321,123 @@ ${footer('../')}
 
 fs.mkdirSync(path.join(SITE, 'estimate'), { recursive: true });
 fs.writeFileSync(path.join(SITE, 'estimate', 'index.html'), estimate);
+
+/* ---------------- redirect link hub ---------------- */
+
+const redirectServices = DETAIL.map((service) => ({
+  name: service.name,
+  blurb: service.body[0].replace(/&mdash;/g, '-').split('. ').slice(0, 2).join('. ') + '.',
+}));
+
+const redirectWhy = [
+  ['20 years of local experience', 'Proven expertise in handling Cape Cod properties with superior craftsmanship.'],
+  ['Fully insured for your protection', 'Complete peace of mind knowing your home and assets are fully protected.'],
+  ['Unmatched property respect', 'We cover floors, protect furniture, and maintain an organized, safe work environment.'],
+  ['All-in-one solution', 'We build, remodel and clean up thoroughly before handing over the keys.'],
+  ['Flexible operating hours', 'Extended weekday hours and Saturday availability.'],
+];
+
+const redirectSteps = [
+  ['Initial quote & planning', 'Contact us to discuss your goals, receive expert guidance, and get an accurate project estimate.'],
+  ['Site preparation & protection', 'We set up protective floor coverings and shield your furniture before tools ever touch the space.'],
+  ['Expert tradeswork', 'Our experienced crew executes your carpentry, painting, remodeling, or installation project with high precision.'],
+  ['Post-job deep clean', 'We finish every project with a thorough interior clean, leaving your home spotless and ready to enjoy.'],
+];
+
+const redirectIcon = {
+  phone: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.5 3 3.7 5.1 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.2-.3 1.3.4 2.6.6 4 .6.7 0 1.2.5 1.2 1.2v3.5c0 .7-.5 1.2-1.2 1.2C10.7 21.4 2.6 13.3 2.6 3.4c0-.7.5-1.2 1.2-1.2h3.5c.7 0 1.2.5 1.2 1.2 0 1.4.2 2.8.6 4 .1.4 0 .9-.3 1.2l-2.2 2.2Z"/></svg>',
+  email: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5A2.5 2.5 0 0 1 5.5 4h13A2.5 2.5 0 0 1 21 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5v-11Zm2.2.1 6.8 5.2 6.8-5.2"/></svg>',
+  form: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7V3Zm7 0v5h5M9.5 12h5M9.5 16h5"/></svg>',
+  website: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm-8-9h16M12 3c2.3 2.3 3.5 5.3 3.5 9S14.3 18.7 12 21c-2.3-2.3-3.5-5.3-3.5-9S9.7 5.3 12 3Z"/></svg>',
+  services: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>',
+};
+
+function redirectButton(href, label, icon, attrs = '') {
+  return `<a class="redirect-btn" href="${href}"${attrs}>${redirectIcon[icon]}<span>${label}</span></a>`;
+}
+
+const redirectPage = `${head({
+  title: 'Contact COSTA LVM Home Service | Cape Cod, MA',
+  description: 'Call, email or request a free estimate — carpentry, remodeling and cleaning across Cape Cod, from Barnstable to Plymouth. Mon–Sat, 7am–6pm.',
+  canonical: SITE_URL + '/redirect/',
+  prefix: '../',
+})}
+  <main id="main" class="redirect-page">
+    <section class="redirect-hero" aria-label="COSTA LVM quick links">
+      <div class="redirect-card">
+        <img src="../assets/img/logo/logo-white.webp" alt="COSTA LVM Home Service" width="300" height="146">
+        <h1>Meticulous carpentry, remodeling &amp; cleaning across Cape Cod</h1>
+        <p>20 years of craftsmanship, family-owned dedication, and total property protection from Barnstable to Plymouth.</p>
+        <div class="redirect-actions">
+          ${redirectButton('tel:' + PHONE_HREF, 'Phone', 'phone')}
+          ${redirectButton('mailto:' + EMAIL, 'Email', 'email')}
+          ${redirectButton('../estimate/', 'Free Estimate', 'form')}
+          ${redirectButton('../services/', 'Services', 'services')}
+          ${redirectButton('../', 'Website', 'website')}
+        </div>
+      </div>
+    </section>
+
+    <section class="redirect-info" aria-label="COSTA LVM service information">
+      <article class="redirect-section redirect-section--intro">
+        <h2>Who we are</h2>
+        <p>COSTA LVM Home Service is a family-owned company built on two decades of hands-on experience in Cape Cod. Led by Marco Aur&eacute;lio, we treat every residence with the utmost respect, care, and attention to detail.</p>
+        <p>Unlike contractors who leave dirt and dust behind, we combine skilled finish carpentry and remodeling with professional interior cleanup. We protect your furniture, safeguard your floors, and maintain an organized workspace from start to finish.</p>
+      </article>
+
+      <article class="redirect-section">
+        <h2>Complete remodeling, painting &amp; home care services</h2>
+        <div class="redirect-grid">
+${redirectServices.map((service) => `          <div>
+            <h3>${service.name}</h3>
+            <p>${service.blurb}</p>
+          </div>`).join('\n')}
+        </div>
+      </article>
+
+      <article class="redirect-section">
+        <h2>Why homeowners, realtors &amp; investors choose COSTA LVM</h2>
+        <ul class="redirect-list">
+${redirectWhy.map(([head, body]) => `          <li>${CHECK}<span><strong>${head}:</strong> ${body}</span></li>`).join('\n')}
+        </ul>
+      </article>
+
+      <article class="redirect-section">
+        <h2>Simple execution from first contact to final handover</h2>
+        <ol class="redirect-steps">
+${redirectSteps.map(([head, body], index) => `          <li>
+            <span>${String(index + 1).padStart(2, '0')}</span>
+            <div><strong>${head}</strong><p>${body}</p></div>
+          </li>`).join('\n')}
+        </ol>
+      </article>
+
+      <article class="redirect-section">
+        <h2>Frequently asked questions</h2>
+        <div class="redirect-faq">
+${FAQS.map((faq) => `          <details>
+            <summary>${faq.q}</summary>
+            <p>${faq.a}</p>
+          </details>`).join('\n')}
+        </div>
+      </article>
+
+      <article class="redirect-section redirect-section--contact">
+        <h2>Service areas &amp; contact</h2>
+        <p>Serving Cape Cod and nearby off-Cape communities: ${TOWNS.join(', ')}.</p>
+        <div class="redirect-contact-row">
+          <a href="tel:${PHONE_HREF}">${PHONE_DISPLAY}</a>
+          <a href="mailto:${EMAIL}">${EMAIL}</a>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
+`;
+
+fs.mkdirSync(path.join(SITE, 'redirect'), { recursive: true });
+fs.writeFileSync(path.join(SITE, 'redirect', 'index.html'), redirectPage);
 
 /* ---------------- privacy ---------------- */
 
@@ -544,9 +664,20 @@ const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
 `;
 fs.writeFileSync(path.join(SITE, 'favicon.svg'), favicon);
 
+/* Content-Signal declares what AI systems may do with this content
+   (contentsignals.org). search=yes and ai-input=yes because being found and
+   being cited in an AI answer both bring this client work; ai-train=no
+   because the photos and copy are the client's, not training material. */
 fs.writeFileSync(
   path.join(SITE, 'robots.txt'),
-  `User-agent: *\nAllow: /\nDisallow: /thank-you/\nDisallow: /thanks/\n\nSitemap: ${SITE_URL}/sitemap.xml\n`
+  `User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+Disallow: /thank-you/
+Disallow: /thanks/
+
+Sitemap: ${SITE_URL}/sitemap.xml
+`
 );
 
 fs.writeFileSync(
@@ -556,6 +687,42 @@ RewriteRule ^thanks/?$ /thank-you/ [R=301,L]
 RewriteRule ^estimate\\.html$ /estimate/ [R=301,L]
 RewriteRule ^privacy\\.html$ /privacy/ [R=301,L]
 RewriteRule ^terms\\.html$ /terms/ [R=301,L]
+RewriteRule ^redirect\\.html$ /redirect/ [R=301,L]
+
+# ---------------------------------------------------------------------------
+# Markdown for agents (content negotiation)
+# An agent that asks for text/markdown gets the .md twin written by
+# gen-markdown.js; a browser asks for text/html and never matches these rules.
+# ---------------------------------------------------------------------------
+AddType text/markdown .md
+
+<IfModule mod_rewrite.c>
+  RewriteCond %{HTTP:Accept} text/markdown [NC]
+  RewriteCond %{DOCUMENT_ROOT}/index.md -f
+  RewriteRule ^$ /index.md [L]
+
+  RewriteCond %{HTTP:Accept} text/markdown [NC]
+  RewriteCond %{DOCUMENT_ROOT}/$1/index.md -f
+  RewriteRule ^(services|estimate|privacy|terms|redirect)/?$ /$1/index.md [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Without Vary, a shared cache hands the markdown to a browser (or the
+  # HTML to an agent) depending on whoever asked first.
+  <FilesMatch "\\.(html|md)$">
+    Header append Vary Accept
+  </FilesMatch>
+
+  # -------------------------------------------------------------------------
+  # Link headers (RFC 8288)
+  # Only IANA-registered relation types, and only resources that exist. No
+  # api-catalog or service-doc: this is a contractor site with no API, and
+  # advertising one that does not exist is worse than advertising nothing.
+  # -------------------------------------------------------------------------
+  <FilesMatch "^index\\.(html|md)$">
+    Header set Link "</privacy/>; rel=\\"privacy-policy\\", </terms/>; rel=\\"terms-of-service\\", </index.md>; rel=\\"describedby\\"; type=\\"text/markdown\\""
+  </FilesMatch>
+</IfModule>
 `
 );
 
@@ -567,6 +734,7 @@ fs.writeFileSync(
   <url><loc>${SITE_URL}/</loc><lastmod>${today}</lastmod><priority>1.0</priority></url>
   <url><loc>${SITE_URL}/services/</loc><lastmod>${today}</lastmod><priority>0.8</priority></url>
   <url><loc>${SITE_URL}/estimate/</loc><lastmod>${today}</lastmod><priority>0.7</priority></url>
+  <url><loc>${SITE_URL}/redirect/</loc><lastmod>${today}</lastmod><priority>0.5</priority></url>
   <url><loc>${SITE_URL}/privacy/</loc><lastmod>${today}</lastmod><priority>0.3</priority></url>
   <url><loc>${SITE_URL}/terms/</loc><lastmod>${today}</lastmod><priority>0.3</priority></url>
 </urlset>
@@ -574,4 +742,4 @@ fs.writeFileSync(
 );
 
 console.log('services/index.html -', (html.length / 1024).toFixed(1), 'KB');
-console.log('estimate/, privacy/, terms/, thank-you/, thanks/, 404.html, favicon.svg, robots.txt, sitemap.xml written');
+console.log('estimate/, redirect/, privacy/, terms/, thank-you/, thanks/, 404.html, favicon.svg, robots.txt, sitemap.xml written');

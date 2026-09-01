@@ -161,6 +161,29 @@ h4 {
   letter-spacing: -0.028em;
   margin: 0;
   text-wrap: balance;
+  /* Title Case on display type only. Running copy keeps sentence case —
+     capitalising every word of an English paragraph reads as a typo. */
+  text-transform: capitalize;
+}
+
+/* The rest of the display type: buttons, nav, filters and form labels. */
+.btn,
+.nav a,
+.field label,
+.filter-btn,
+.slide__more,
+.service-index a {
+  text-transform: capitalize;
+}
+
+/* Capitalize would rewrite these: an address is not a title, the FAQ
+   questions are sentences, and the legal pages are read as prose. */
+.faq h3,
+.legal-page h2,
+.legal-page h3,
+address,
+address * {
+  text-transform: none;
 }
 
 p {
@@ -257,7 +280,8 @@ textarea {
   background-image: var(--texture);
   background-size: cover;
   background-position: center;
-  opacity: 0.07;
+  /* 30% weaker than the previous 0.07, at the client's request (2026-09-01). */
+  opacity: 0.049;
   -webkit-mask-image: linear-gradient(
     180deg,
     transparent 0%,
@@ -373,6 +397,21 @@ textarea {
   line-height: 1.65;
   color: var(--text-mut);
   max-width: 52ch;
+}
+
+/* No orphans in subs. `balance` is capped at ~6 lines by the spec and is
+   meant for headings; `pretty` is the one that only fixes the last line,
+   which is exactly the orphan case. Both degrade to normal wrapping. */
+.lede,
+.hero__sub,
+.slide__body p,
+.reason p,
+.step p,
+.prose p,
+.gallery figcaption,
+.contact-map figcaption,
+.form-note {
+  text-wrap: pretty;
 }
 
 .prose {
@@ -1918,9 +1957,16 @@ textarea {
 .service-detail {
   display: grid;
   gap: clamp(1.75rem, 4vw, 3.5rem);
+  /* stretch, not center: the photo matches the height of the copy column
+     beside it instead of floating in the middle of it. */
+  align-items: stretch;
+}
+
+/* Each service is now its own fold, alternating light and dark like the
+   home. The change of ground is the divider, so the old border-top and the
+   article's own padding-block would both double up. */
+.service-fold {
   padding-block: var(--section-y);
-  border-top: 1px solid var(--border);
-  align-items: center;
 }
 
 @media (min-width: 900px) {
@@ -1932,12 +1978,26 @@ textarea {
   }
 }
 
+.service-detail__figure {
+  display: flex;
+  margin: 0;
+}
+
 .service-detail__figure img {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
   border-radius: var(--r-lg);
   border: 1px solid var(--border);
+}
+
+@media (min-width: 900px) {
+  /* Same height as the copy column. aspect-ratio stays as the floor, so a
+     short block still gets a 4:3 photo instead of a letterbox sliver. */
+  .service-detail__figure img {
+    height: 100%;
+    min-height: 100%;
+  }
 }
 
 .service-detail h2 {
@@ -2054,4 +2114,662 @@ textarea {
   color: var(--gold-ink);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
+}
+
+/* ---------- redirect link hub ---------- */
+
+.redirect-page {
+  min-height: 100vh;
+  background: #090807;
+  color: #fff;
+}
+
+@media (max-width: 1000px) {
+  body:has(.redirect-page) {
+    padding-bottom: 0;
+  }
+}
+
+.redirect-hero {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: clamp(2rem, 5vw, 4.5rem) 1rem;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.redirect-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(180deg, rgba(4, 4, 4, 0.56), rgba(4, 4, 4, 0.88)),
+    url("../video/hero-poster-desktop.webp") center / cover;
+  filter: grayscale(1) contrast(1.05);
+  transform: scale(1.04);
+}
+
+.redirect-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse 60% 50% at 50% 35%, rgba(229, 167, 63, 0.18), transparent 62%);
+}
+
+.redirect-card {
+  width: min(100%, 600px);
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  padding: clamp(2rem, 5vw, 4rem);
+  text-align: center;
+  background: rgba(15, 14, 13, 0.92);
+  border: 1px solid var(--gold-400);
+  border-radius: 8px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+}
+
+.redirect-card img {
+  width: min(330px, 78vw);
+  height: auto;
+}
+
+.redirect-card h1 {
+  max-width: 13em;
+  font-family: var(--font-head);
+  font-size: clamp(1.35rem, 4.5vw, 2rem);
+  line-height: 1.1;
+}
+
+.redirect-card p {
+  max-width: 34rem;
+  color: rgba(255, 255, 255, 0.74);
+  line-height: 1.55;
+}
+
+.redirect-actions {
+  width: min(100%, 380px);
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+}
+
+.redirect-btn {
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  /* The logo gold, in the same champagne-to-gold sweep the site's primary
+     button uses. The orange gradient here came from the TopGutter page this
+     layout was modelled on — it is that company's brand, not this one's. */
+  background: linear-gradient(180deg, var(--gold-200), var(--gold-400));
+  color: #14110f;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-transform: capitalize;
+  text-decoration: none;
+  box-shadow: 0 12px 28px rgba(201, 138, 36, 0.26);
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.redirect-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+  box-shadow: 0 16px 36px rgba(201, 138, 36, 0.36);
+}
+
+.redirect-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.redirect-info {
+  display: grid;
+  gap: 1px;
+  background: rgba(201, 138, 36, 0.2);
+}
+
+.redirect-section {
+  padding: clamp(2.25rem, 6vw, 5rem) max(1.25rem, calc((100vw - 1120px) / 2));
+  background: #11100f;
+}
+
+.redirect-section:nth-child(even) {
+  background: #171411;
+}
+
+.redirect-section h2 {
+  max-width: 780px;
+  margin-bottom: 1.35rem;
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  line-height: 1.08;
+}
+
+.redirect-section p {
+  max-width: 850px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.72;
+}
+
+.redirect-section--intro p + p {
+  margin-top: 0.85rem;
+}
+
+.redirect-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 760px) {
+  .redirect-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.redirect-grid div,
+.redirect-faq details {
+  padding: 1.1rem;
+  border: 1px solid rgba(201, 138, 36, 0.26);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.redirect-grid h3 {
+  margin-bottom: 0.45rem;
+  font-family: var(--font-head);
+  font-size: 1rem;
+  color: var(--gold-200);
+}
+
+.redirect-list,
+.redirect-steps {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 920px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.redirect-list li,
+.redirect-steps li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
+  align-items: start;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.redirect-list svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.2rem;
+  color: var(--gold-200);
+}
+
+.redirect-list strong,
+.redirect-steps strong {
+  color: #fff;
+}
+
+.redirect-steps > li > span {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid rgba(201, 138, 36, 0.5);
+  border-radius: 50%;
+  color: var(--gold-200);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.redirect-faq {
+  display: grid;
+  gap: 0.8rem;
+  max-width: 920px;
+}
+
+.redirect-faq summary {
+  cursor: pointer;
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: #fff;
+}
+
+.redirect-faq p {
+  margin-top: 0.8rem;
+}
+
+.redirect-contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
+
+.redirect-contact-row a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.65rem 1rem;
+  /* was rgba(255,122,0,.45) — the orange came from the TopGutter reference
+     that inspired this page. This client's accent is the logo gold. */
+  border: 1px solid var(--gold-400);
+  border-radius: 999px;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Centred page hero — used by /estimate/, where the page is one form and a
+   centred head reads as a form title rather than as an article opening. */
+.page-hero--center .container {
+  text-align: center;
+}
+
+.page-hero--center .lede {
+  margin-inline: auto;
+}
+
+.page-hero--center .breadcrumb {
+  justify-content: center;
+}
+
+/* =========================================================================
+   ENTRANCE ANIMATION — added 2026-09-01
+   Everything is visible by default. JS stamps .js-reveal on <html>, and only
+   then does anything hide itself — so a JS failure or a crawler sees the
+   full page, never a blank one. Only opacity and transform animate, so this
+   costs no layout and cannot introduce CLS.
+   ========================================================================= */
+
+.js-reveal [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  will-change: opacity, transform;
+}
+
+.js-reveal [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Children of a revealed group cascade, so a fold assembles instead of
+   snapping in as one block. Six steps is enough for any group we have. */
+.js-reveal [data-reveal-group] > * {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.js-reveal [data-reveal-group].is-in > * {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.js-reveal [data-reveal-group].is-in > *:nth-child(1) { transition-delay: 0ms; }
+.js-reveal [data-reveal-group].is-in > *:nth-child(2) { transition-delay: 70ms; }
+.js-reveal [data-reveal-group].is-in > *:nth-child(3) { transition-delay: 140ms; }
+.js-reveal [data-reveal-group].is-in > *:nth-child(4) { transition-delay: 210ms; }
+.js-reveal [data-reveal-group].is-in > *:nth-child(5) { transition-delay: 280ms; }
+.js-reveal [data-reveal-group].is-in > *:nth-child(6) { transition-delay: 350ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal [data-reveal],
+  .js-reveal [data-reveal-group] > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* =========================================================================
+   HOVER — added 2026-09-01
+   Pointer-only: `hover: hover` keeps a phone from latching a hover state on
+   tap and leaving a card stuck lifted.
+   ========================================================================= */
+
+@media (hover: hover) {
+  .reason,
+  .faq details,
+  .service-index a {
+    transition:
+      transform 0.28s ease,
+      border-color 0.28s ease,
+      box-shadow 0.28s ease;
+  }
+
+  .reason:hover,
+  .faq details:hover,
+  .service-index a:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold-400);
+    box-shadow: 0 14px 34px -18px rgba(0, 0, 0, 0.55);
+  }
+
+  /* Gallery: the frame holds still and only the photo scales inside it, so
+     nothing around it moves. */
+  .gallery figure {
+    overflow: hidden;
+    transition: box-shadow 0.28s ease;
+  }
+
+  .gallery figure img {
+    transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .gallery figure:hover img {
+    transform: scale(1.045);
+  }
+
+  .gallery figure:hover {
+    box-shadow: 0 16px 40px -20px rgba(0, 0, 0, 0.6);
+  }
+
+  .slide__more {
+    transition: gap 0.24s ease, color 0.24s ease;
+  }
+
+  .slide__more:hover svg {
+    transform: translateX(3px);
+  }
+
+  .slide__more svg {
+    transition: transform 0.24s ease;
+  }
+
+  .btn {
+    transition:
+      transform 0.22s ease,
+      box-shadow 0.22s ease,
+      background-color 0.22s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn:active {
+    transform: translateY(0);
+  }
+
+  .site-footer a:not(.btn) {
+    background-image: linear-gradient(var(--gold-400), var(--gold-400));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    transition: background-size 0.3s ease, color 0.3s ease;
+  }
+
+  .site-footer a:not(.btn):hover {
+    background-size: 100% 1px;
+    color: var(--gold-100);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reason,
+  .faq details,
+  .service-index a,
+  .gallery figure img,
+  .btn,
+  .site-footer a:not(.btn) {
+    transition: none;
+  }
+  .reason:hover,
+  .faq details:hover,
+  .service-index a:hover,
+  .btn:hover,
+  .gallery figure:hover img {
+    transform: none;
+  }
+}
+
+/* =========================================================================
+   LIGHTBOX — added 2026-09-01
+   Built on <dialog>, so the browser owns the top layer, the focus trap, the
+   backdrop and Esc. Far less to get wrong than a hand-rolled modal.
+   ========================================================================= */
+
+.lightbox {
+  width: min(94vw, 1200px);
+  max-width: none;
+  max-height: 92vh;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+  color: var(--text);
+}
+
+.lightbox::backdrop {
+  background: rgba(8, 7, 6, 0.88);
+  backdrop-filter: blur(3px);
+}
+
+.lightbox__frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.lightbox__img {
+  display: block;
+  width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: var(--r-md);
+  background: #0a0908;
+}
+
+.lightbox__caption {
+  color: #d9d3ca;
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  text-align: center;
+  text-wrap: pretty;
+}
+
+.lightbox__close,
+.lightbox__nav {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(20, 17, 15, 0.72);
+  color: #fff;
+  cursor: pointer;
+}
+
+.lightbox__close {
+  top: -14px;
+  right: -8px;
+}
+
+.lightbox__nav--prev { left: -8px; top: calc(39vh - 22px); }
+.lightbox__nav--next { right: -8px; top: calc(39vh - 22px); }
+
+.lightbox__close:hover,
+.lightbox__nav:hover {
+  border-color: var(--gold-400);
+  color: var(--gold-100);
+}
+
+.lightbox__nav[disabled] {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* The gallery figure becomes a real button, so it must look and behave
+   like one for keyboard users too. */
+.gallery figure button.gallery__open {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  font: inherit;
+  color: inherit;
+}
+
+@media (max-width: 620px) {
+  .lightbox__nav--prev { left: 2px; }
+  .lightbox__nav--next { right: 2px; }
+  .lightbox__close { right: 2px; top: -50px; }
+}
+
+/* =========================================================================
+   MOBILE — added 2026-09-01
+   ========================================================================= */
+
+@media (max-width: 760px) {
+  /* Centre the reading column. Deliberately excluded below: form fields
+     (a centred label floating over a left-aligned input reads as broken),
+     and the legal pages, where the text is long-form prose. */
+  .section-head,
+  .hero__copy,
+  .lede,
+  .hero__sub,
+  .trust-item,
+  .reason,
+  .step,
+  .slide__body,
+  .faq details,
+  .footer-col,
+  .footer-bottom,
+  .gallery-head,
+  .about-grid__copy {
+    text-align: center;
+  }
+
+  .section-head,
+  .lede,
+  .hero__sub {
+    margin-inline: auto;
+  }
+
+  .trust-item,
+  .reason,
+  .step,
+  .slide__body {
+    align-items: center;
+  }
+
+  /* Icons and badges that sat at the start of a left-aligned block have to
+     come to the middle too, or the centring looks accidental. */
+  .trust-item svg,
+  .reason svg,
+  .eyebrow {
+    margin-inline: auto;
+  }
+
+  .estimate-page .page-hero,
+  .estimate-page .h-hero,
+  .estimate-page .lede {
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  /* Form stays left-aligned — see note above. */
+  .field label,
+  .field input,
+  .field select,
+  .field textarea,
+  .field__error,
+  .legal-page,
+  .legal-page p,
+  .legal-page li {
+    text-align: left;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Wider service cards: 74vw left a 239px column of text on a 390px
+     screen. 88vw buys back 53px of reading width; the neighbour still
+     peeks, just less. */
+  .carousel {
+    --slide-w: min(920px, 88vw);
+  }
+
+  /* Smaller arrows, but the tap target stays ≥24px (WCAG 2.5.8) because
+     the padding is what shrinks, not the hit area. */
+  .carousel__nav {
+    width: 34px;
+    height: 34px;
+  }
+
+  .carousel__nav svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .carousel__nav--prev { left: 2px; }
+  .carousel__nav--next { right: 2px; }
+}
+
+/* How it works, mobile: a real vertical timeline. The desktop track only
+   exists at ≥1040px, so below that the steps had no visual sequence at all
+   — just four numerals stacked. */
+@media (max-width: 1039px) {
+  .steps {
+    position: relative;
+    gap: 0;
+  }
+
+  .step {
+    position: relative;
+    padding-block: var(--sp-4);
+    padding-inline: var(--sp-3);
+  }
+
+  /* The connector runs between steps, never past the last one. */
+  .step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 1px;
+    height: var(--sp-4);
+    transform: translateX(-50%);
+    background: linear-gradient(
+      180deg,
+      var(--gold-400),
+      rgba(201, 138, 36, 0)
+    );
+  }
+
+  .step__num {
+    display: block;
+    margin-inline: auto;
+    line-height: 0.9;
+  }
+
+  .step h3 {
+    margin-top: calc(var(--sp-2) * -1);
+  }
 }
