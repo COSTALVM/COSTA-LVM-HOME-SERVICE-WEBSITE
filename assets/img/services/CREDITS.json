@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "exterior-painting",
+    "source": "Pexels",
+    "photo_id": "31608472",
+    "url": "https://www.pexels.com/photo/31608472/",
+    "license": "Pexels License - free for commercial use, no attribution required",
+    "natural": {
+      "w": 1600,
+      "h": 1609
+    },
+    "note": "Painter on a ladder applying paint to an exterior wall."
+  },
+  {
+    "slug": "power-washing",
+    "source": "Pexels",
+    "photo_id": "5652626",
+    "url": "https://www.pexels.com/photo/5652626/",
+    "license": "Pexels License - free for commercial use, no attribution required",
+    "natural": {
+      "w": 1600,
+      "h": 2133
+    },
+    "note": "Pressure washing white clapboard siding."
+  },
+  {
+    "slug": "house-cleaning",
+    "source": "Pexels",
+    "photo_id": "6195949",
+    "url": "https://www.pexels.com/photo/6195949/",
+    "license": "Pexels License - free for commercial use, no attribution required",
+    "natural": {
+      "w": 1600,
+      "h": 1067
+    },
+    "note": "Wet/dry vacuum and protective coveralls on a tiled floor - reads as post-construction cleanup."
+  }
+]

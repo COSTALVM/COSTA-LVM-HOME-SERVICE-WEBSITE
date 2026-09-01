@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /thank-you/
+Disallow: /thanks/
+
+Sitemap: https://costalvmhomeservice.com/sitemap.xml

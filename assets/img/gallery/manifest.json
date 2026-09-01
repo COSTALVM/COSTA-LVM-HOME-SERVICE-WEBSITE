@@ -1,0 +1,580 @@
+[
+  {
+    "idx": 2,
+    "slug": "finish-carpentry-02",
+    "category": "finish-carpentry",
+    "before": false,
+    "orientation": "portrait",
+    "natural": {
+      "w": 1200,
+      "h": 1600
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.33.20.jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "finish-carpentry-02-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "finish-carpentry-02-960.webp"
+      }
+    ]
+  },
+  {
+    "idx": 3,
+    "slug": "finish-carpentry-03",
+    "category": "finish-carpentry",
+    "before": false,
+    "orientation": "portrait",
+    "natural": {
+      "w": 1200,
+      "h": 1600
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.33.53.jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "finish-carpentry-03-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "finish-carpentry-03-960.webp"
+      }
+    ]
+  },
+  {
+    "idx": 6,
+    "slug": "finish-carpentry-06",
+    "category": "finish-carpentry",
+    "before": false,
+    "orientation": "portrait",
+    "natural": {
+      "w": 3840,
+      "h": 5120
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.38.09.jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "finish-carpentry-06-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "finish-carpentry-06-960.webp"
+      },
+      {
+        "w": 1440,
+        "file": "finish-carpentry-06-1440.webp"
+      }
+    ]
+  },
+  {
+    "idx": 21,
+    "slug": "bathroom-remodel-07-before",
+    "category": "bathroom-remodel",
+    "before": true,
+    "orientation": "portrait",
+    "natural": {
+      "w": 1200,
+      "h": 1600
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.47.49 (1).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "bathroom-remodel-07-before-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "bathroom-remodel-07-before-960.webp"
+      }
+    ]
+  },
+  {
+    "idx": 22,
+    "slug": "bathroom-remodel-08-before",
+    "category": "bathroom-remodel",
+    "before": true,
+    "orientation": "portrait",
+    "natural": {
+      "w": 1200,
+      "h": 1600
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.47.49.jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "bathroom-remodel-08-before-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "bathroom-remodel-08-before-960.webp"
+      }
+    ]
+  },
+  {
+    "idx": 25,
+    "slug": "bathroom-remodel-09",
+    "category": "bathroom-remodel",
+    "before": false,
+    "orientation": "portrait",
+    "natural": {
+      "w": 1200,
+      "h": 1600
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.47.50 (3).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "bathroom-remodel-09-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "bathroom-remodel-09-960.webp"
+      }
+    ]
+  },
+  {
+    "idx": 26,
+    "slug": "bathroom-remodel-10",
+    "category": "bathroom-remodel",
+    "before": false,
+    "orientation": "portrait",
+    "natural": {
+      "w": 1200,
+      "h": 1600
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.47.50 (4).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "bathroom-remodel-10-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "bathroom-remodel-10-960.webp"
+      }
+    ]
+  },
+  {
+    "idx": 27,
+    "slug": "bathroom-remodel-11",
+    "category": "bathroom-remodel",
+    "before": false,
+    "orientation": "portrait",
+    "natural": {
+      "w": 1200,
+      "h": 1600
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.47.50 (5).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "bathroom-remodel-11-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "bathroom-remodel-11-960.webp"
+      }
+    ]
+  },
+  {
+    "idx": 28,
+    "slug": "bathroom-remodel-12",
+    "category": "bathroom-remodel",
+    "before": false,
+    "orientation": "portrait",
+    "natural": {
+      "w": 1200,
+      "h": 1600
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.47.50 (6).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "bathroom-remodel-12-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "bathroom-remodel-12-960.webp"
+      }
+    ]
+  },
+  {
+    "idx": 30,
+    "slug": "bathroom-remodel-14",
+    "category": "bathroom-remodel",
+    "before": false,
+    "orientation": "portrait",
+    "natural": {
+      "w": 1200,
+      "h": 1600
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.50.21 (1).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "bathroom-remodel-14-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "bathroom-remodel-14-960.webp"
+      }
+    ]
+  },
+  {
+    "idx": 31,
+    "slug": "bathroom-remodel-15",
+    "category": "bathroom-remodel",
+    "before": false,
+    "orientation": "portrait",
+    "natural": {
+      "w": 1200,
+      "h": 1600
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.50.21 (2).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "bathroom-remodel-15-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "bathroom-remodel-15-960.webp"
+      }
+    ]
+  },
+  {
+    "idx": 33,
+    "slug": "bathroom-remodel-17",
+    "category": "bathroom-remodel",
+    "before": false,
+    "orientation": "portrait",
+    "natural": {
+      "w": 1200,
+      "h": 1600
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.50.21 (4).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "bathroom-remodel-17-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "bathroom-remodel-17-960.webp"
+      }
+    ]
+  },
+  {
+    "idx": 42,
+    "slug": "finish-carpentry-15",
+    "category": "finish-carpentry",
+    "before": false,
+    "orientation": "portrait",
+    "natural": {
+      "w": 1200,
+      "h": 1600
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.52.00 (1).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "finish-carpentry-15-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "finish-carpentry-15-960.webp"
+      }
+    ]
+  },
+  {
+    "idx": 45,
+    "slug": "bathroom-remodel-22-before",
+    "category": "bathroom-remodel",
+    "before": true,
+    "orientation": "portrait",
+    "natural": {
+      "w": 1200,
+      "h": 1600
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.54.32 (1).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "bathroom-remodel-22-before-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "bathroom-remodel-22-before-960.webp"
+      }
+    ]
+  },
+  {
+    "idx": 47,
+    "slug": "kitchen-remodel-01-before",
+    "category": "kitchen-remodel",
+    "before": true,
+    "orientation": "landscape",
+    "natural": {
+      "w": 1600,
+      "h": 1200
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.54.32 (3).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "kitchen-remodel-01-before-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "kitchen-remodel-01-before-960.webp"
+      },
+      {
+        "w": 1440,
+        "file": "kitchen-remodel-01-before-1440.webp"
+      }
+    ]
+  },
+  {
+    "idx": 48,
+    "slug": "kitchen-remodel-02-before",
+    "category": "kitchen-remodel",
+    "before": true,
+    "orientation": "portrait",
+    "natural": {
+      "w": 1200,
+      "h": 1600
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.54.32 (4).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "kitchen-remodel-02-before-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "kitchen-remodel-02-before-960.webp"
+      }
+    ]
+  },
+  {
+    "idx": 54,
+    "slug": "bathroom-remodel-26",
+    "category": "bathroom-remodel",
+    "before": false,
+    "orientation": "portrait",
+    "natural": {
+      "w": 1200,
+      "h": 1600
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.54.33 (3).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "bathroom-remodel-26-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "bathroom-remodel-26-960.webp"
+      }
+    ]
+  },
+  {
+    "idx": 57,
+    "slug": "interior-remodel-03",
+    "category": "interior-remodel",
+    "before": false,
+    "orientation": "landscape",
+    "natural": {
+      "w": 1600,
+      "h": 1200
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.54.33 (6).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "interior-remodel-03-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "interior-remodel-03-960.webp"
+      },
+      {
+        "w": 1440,
+        "file": "interior-remodel-03-1440.webp"
+      }
+    ]
+  },
+  {
+    "idx": 58,
+    "slug": "kitchen-remodel-04",
+    "category": "kitchen-remodel",
+    "before": false,
+    "orientation": "landscape",
+    "natural": {
+      "w": 1600,
+      "h": 1200
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.54.33 (7).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "kitchen-remodel-04-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "kitchen-remodel-04-960.webp"
+      },
+      {
+        "w": 1440,
+        "file": "kitchen-remodel-04-1440.webp"
+      }
+    ]
+  },
+  {
+    "idx": 59,
+    "slug": "kitchen-remodel-05",
+    "category": "kitchen-remodel",
+    "before": false,
+    "orientation": "landscape",
+    "natural": {
+      "w": 1600,
+      "h": 1200
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.54.33 (8).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "kitchen-remodel-05-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "kitchen-remodel-05-960.webp"
+      },
+      {
+        "w": 1440,
+        "file": "kitchen-remodel-05-1440.webp"
+      }
+    ]
+  },
+  {
+    "idx": 60,
+    "slug": "kitchen-remodel-06",
+    "category": "kitchen-remodel",
+    "before": false,
+    "orientation": "landscape",
+    "natural": {
+      "w": 1600,
+      "h": 1200
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.54.33 (9).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "kitchen-remodel-06-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "kitchen-remodel-06-960.webp"
+      },
+      {
+        "w": 1440,
+        "file": "kitchen-remodel-06-1440.webp"
+      }
+    ]
+  },
+  {
+    "idx": 61,
+    "slug": "interior-remodel-04",
+    "category": "interior-remodel",
+    "before": false,
+    "orientation": "landscape",
+    "natural": {
+      "w": 1600,
+      "h": 1200
+    },
+    "source": "WhatsApp Image 2026-08-22 at 09.54.33 (10).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "interior-remodel-04-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "interior-remodel-04-960.webp"
+      },
+      {
+        "w": 1440,
+        "file": "interior-remodel-04-1440.webp"
+      }
+    ]
+  },
+  {
+    "idx": 64,
+    "slug": "bathroom-remodel-30",
+    "category": "bathroom-remodel",
+    "before": false,
+    "orientation": "landscape",
+    "natural": {
+      "w": 1206,
+      "h": 1193
+    },
+    "source": "WhatsApp Image 2026-08-22 at 10.37.05 (1).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "bathroom-remodel-30-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "bathroom-remodel-30-960.webp"
+      }
+    ]
+  },
+  {
+    "idx": 65,
+    "slug": "bathroom-remodel-31",
+    "category": "bathroom-remodel",
+    "before": false,
+    "orientation": "landscape",
+    "natural": {
+      "w": 1206,
+      "h": 1182
+    },
+    "source": "WhatsApp Image 2026-08-22 at 10.37.05 (2).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "bathroom-remodel-31-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "bathroom-remodel-31-960.webp"
+      }
+    ]
+  },
+  {
+    "idx": 68,
+    "slug": "bathroom-remodel-34",
+    "category": "bathroom-remodel",
+    "before": false,
+    "orientation": "landscape",
+    "natural": {
+      "w": 1206,
+      "h": 1185
+    },
+    "source": "WhatsApp Image 2026-08-22 at 10.37.05.jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "bathroom-remodel-34-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "bathroom-remodel-34-960.webp"
+      }
+    ]
+  }
+]
