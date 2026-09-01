@@ -163,4 +163,4 @@ Every photograph below is our own work on a real Cape Cod property.
 
 *Barnstable · Yarmouth · Dennis · Brewster · Harwich · Chatham · Orleans · Eastham · Mashpee · Sandwich · Falmouth · Bourne · Plymouth — all in Massachusetts.*
 
-We only use your details to reply about your project. No newsletters, no third parties.
+We only use your details to reply about your project. No newsletters, and we never sell your information. See our [privacy policy](/privacy/).

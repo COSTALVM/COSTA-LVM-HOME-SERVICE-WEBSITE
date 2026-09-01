@@ -26,9 +26,11 @@ We do not use estimate requests for newsletters, and we do not sell submitted co
 
 ## Form processing and analytics
 
-The estimate form is processed through Web3Forms. The website also uses Google Tag Manager to help measure page visits, phone clicks, and form conversions so marketing can be reviewed and improved.
+The estimate form is processed through Web3Forms, which delivers your request to us by email. A copy of the same request is also sent to a lead system operated by Trajetória do Sucesso, the agency that builds and maintains this website, so that no request is lost in transit.
 
-These services may process technical information according to their own privacy practices. COSTA LVM uses them only for website operation, lead delivery, spam prevention, and measurement.
+The website also uses Google Tag Manager to help measure page visits, phone clicks, and form conversions so marketing can be reviewed and improved.
+
+These providers may process technical information according to their own privacy practices. COSTA LVM uses them only for website operation, lead delivery, spam prevention, and measurement. None of them receives your information for their own marketing.
 
 ## Sharing and retention
 

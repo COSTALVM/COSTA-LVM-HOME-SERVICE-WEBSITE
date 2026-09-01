@@ -2,7 +2,7 @@
 const path = require('path');
 const base = require('./gen-index.js');
 
-const { head, header, footer, btn, estimateForm, ARROW, CHECK, SITE_URL, PHONE_HREF, PHONE_DISPLAY, EMAIL, TOWNS, FAQS, img, stockImg } = base;
+const { head, header, footer, btn, estimateForm, ARROW, CHECK, SITE_URL, PHONE_HREF, PHONE_DISPLAY, EMAIL, TOWNS, FAQS, img, stockImg, JS_V } = base;
 
 const ROOT = 'C:\\Users\\felipefreitas_trajet\\Desktop\\COSTA LVM HOME SERVICE';
 const SITE = path.join(ROOT, 'site');
@@ -354,23 +354,36 @@ const redirectPage = `${head({
   description: 'Call, email or request a free estimate — carpentry, remodeling and cleaning across Cape Cod, from Barnstable to Plymouth. Mon–Sat, 7am–6pm.',
   canonical: SITE_URL + '/redirect/',
   prefix: '../',
+  /* noindex: this is the Instagram bio link, not a search result. Its H1 was
+     byte-identical to the home page's, so as an indexable page it competed
+     with the home for the same query and split the signal. Removed from
+     sitemap.xml for the same reason. `follow` so the links still pass. */
+  extraHead: '<meta name="robots" content="noindex, follow">',
 })}
   <main id="main" class="redirect-page">
     <section class="redirect-hero" aria-label="COSTA LVM quick links">
       <div class="redirect-card">
         <img src="../assets/img/logo/logo-white.webp" alt="COSTA LVM Home Service" width="300" height="146">
         <h1>Meticulous carpentry, remodeling &amp; cleaning across Cape Cod</h1>
-        <p>20 years of craftsmanship, family-owned dedication, and total property protection from Barnstable to Plymouth.</p>
+        ${/* Short enough to survive on a 530px-tall in-app browser, which is
+              where most of this traffic lands. The long version was being
+              hidden by a media query — which removed the only reason to trust
+              the page exactly where it was needed most. */ ''}
+        <p>20 years on Cape Cod. Family-owned and fully insured.</p>
         <div class="redirect-actions">
-          ${redirectButton('tel:' + PHONE_HREF, 'Phone', 'phone')}
-          ${redirectButton('mailto:' + EMAIL, 'Email', 'email')}
-          ${redirectButton('../estimate/', 'Free Estimate', 'form')}
-          ${redirectButton('../services/', 'Services', 'services')}
-          ${redirectButton('../', 'Website', 'website')}
+          ${redirectButton('tel:' + PHONE_HREF, 'Call ' + PHONE_DISPLAY, 'phone')}
+          ${redirectButton('mailto:' + EMAIL, 'Email us', 'email')}
+          ${redirectButton('../estimate/', 'Get my free estimate', 'form')}
+          ${redirectButton('../services/', 'See our services', 'services')}
+          ${redirectButton('../', 'Visit the website', 'website')}
         </div>
       </div>
     </section>
   </main>
+  ${/* The bio link is where the highest-intent tap on this whole site
+        happens, and without main.js the tel: click fired no tracking at
+        all — the cheapest, warmest traffic was invisible in the reports. */ ''}
+  <script src="../assets/js/main.js${JS_V}" defer></script>
 </body>
 </html>
 `;
@@ -442,8 +455,9 @@ const privacy = legalPage({
     {
       h: 'Form processing and analytics',
       p: [
-        'The estimate form is processed through Web3Forms. The website also uses Google Tag Manager to help measure page visits, phone clicks, and form conversions so marketing can be reviewed and improved.',
-        'These services may process technical information according to their own privacy practices. COSTA LVM uses them only for website operation, lead delivery, spam prevention, and measurement.',
+        'The estimate form is processed through Web3Forms, which delivers your request to us by email. A copy of the same request is also sent to a lead system operated by Trajet&oacute;ria do Sucesso, the agency that builds and maintains this website, so that no request is lost in transit.',
+        'The website also uses Google Tag Manager to help measure page visits, phone clicks, and form conversions so marketing can be reviewed and improved.',
+        'These providers may process technical information according to their own privacy practices. COSTA LVM uses them only for website operation, lead delivery, spam prevention, and measurement. None of them receives your information for their own marketing.',
       ],
     },
     {
@@ -546,7 +560,11 @@ const thanksRedirect = `${head({
   description: 'Redirecting to the COSTA LVM Home Service thank-you page.',
   canonical: SITE_URL + '/thank-you/',
   prefix: '../',
-  extraHead: '<meta name="robots" content="noindex, follow">\\n<meta http-equiv="refresh" content="0; url=../thank-you/">',
+  /* The separator has to be a real newline. Written as '\\n' it emitted the
+     two literal characters into <head>, and non-whitespace text there makes
+     the HTML5 parser close <head> and open <body> — which dumped the
+     refresh meta, the stylesheet and the preloads into the body. */
+  extraHead: '<meta name="robots" content="noindex, follow">\n<meta http-equiv="refresh" content="0; url=../thank-you/">',
 })}
   <main id="main" class="centered-page">
     <div class="container">
@@ -720,7 +738,6 @@ fs.writeFileSync(
   <url><loc>${SITE_URL}/</loc><lastmod>${today}</lastmod><priority>1.0</priority></url>
   <url><loc>${SITE_URL}/services/</loc><lastmod>${today}</lastmod><priority>0.8</priority></url>
   <url><loc>${SITE_URL}/estimate/</loc><lastmod>${today}</lastmod><priority>0.7</priority></url>
-  <url><loc>${SITE_URL}/redirect/</loc><lastmod>${today}</lastmod><priority>0.5</priority></url>
   <url><loc>${SITE_URL}/privacy/</loc><lastmod>${today}</lastmod><priority>0.3</priority></url>
   <url><loc>${SITE_URL}/terms/</loc><lastmod>${today}</lastmod><priority>0.3</priority></url>
 </urlset>

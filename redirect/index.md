@@ -7,4 +7,4 @@ generated: 2026-09-01
 
 # Meticulous carpentry, remodeling & cleaning across Cape Cod
 
-20 years of craftsmanship, family-owned dedication, and total property protection from Barnstable to Plymouth.
+20 years on Cape Cod. Family-owned and fully insured.

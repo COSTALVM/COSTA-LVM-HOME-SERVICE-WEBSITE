@@ -2216,14 +2216,14 @@ textarea {
 }
 
 /* Second tier, for SE-class and older Android screens (360x640 and down),
-   where even the tightened card still cut off the last button. The
-   supporting line goes; the headline already carries the same message, and
-   a button nobody can reach is worth less than a sentence nobody reads. */
-@media (max-height: 680px) {
-  .redirect-card p {
-    display: none;
-  }
+   where even the tightened card still cut off the last button.
 
+   The supporting line used to be hidden here. That was wrong: the Instagram
+   in-app browser leaves roughly 530-600px of usable height, so the hidden
+   state was the COMMON case, not the edge case — the page arrived with a
+   logo, a headline and five buttons and no reason at all to trust it. The
+   line was shortened instead, so it now fits and always shows. */
+@media (max-height: 680px) {
   .redirect-card {
     gap: 0.6rem;
     padding: 1rem;
@@ -2235,6 +2235,39 @@ textarea {
 
   .redirect-card h1 {
     font-size: 1.05rem;
+  }
+}
+
+/* Third tier: the Instagram in-app browser on a smaller phone leaves around
+   600px. Measured at 375x600 the fifth button fell below the fold, so the
+   logo and the headline give up a little more room. Everything still shows;
+   nothing is hidden. */
+@media (max-height: 620px) {
+  .redirect-card {
+    gap: 0.5rem;
+    padding: 0.85rem;
+  }
+
+  .redirect-card img {
+    width: min(150px, 42vw);
+  }
+
+  .redirect-card h1 {
+    font-size: 0.98rem;
+    line-height: 1.15;
+  }
+
+  .redirect-card p {
+    font-size: 0.82rem;
+  }
+
+  .redirect-btn {
+    min-height: 44px;
+    font-size: 0.95rem;
+  }
+
+  .redirect-actions {
+    gap: 0.45rem;
   }
 }
 

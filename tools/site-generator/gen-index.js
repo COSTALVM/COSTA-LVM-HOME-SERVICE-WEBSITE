@@ -136,7 +136,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->`;
 }
 
-function img(slug, { sizes, loading = 'lazy', fetchpriority, prefix = '' }) {
+/* `alt` overrides the category default. The default describes the file's
+   category, which is right in the gallery but wrong on a service slide: a
+   window seat used to illustrate "Windows and Doors" was going out with the
+   alt "custom built-ins and finish carpentry", telling Google in writing
+   that the photo shows a different service than the slide sells. */
+function img(slug, { sizes, loading = 'lazy', fetchpriority, prefix = '', alt }) {
   const m = bySlug[slug];
   if (!m) throw new Error('unknown asset: ' + slug);
   const base = prefix + 'assets/img/gallery/';
@@ -144,7 +149,7 @@ function img(slug, { sizes, loading = 'lazy', fetchpriority, prefix = '' }) {
   const largest = m.srcset[m.srcset.length - 1];
   const h = Math.round((largest.w / m.natural.w) * m.natural.h);
   return `<img src="${base}${largest.file}" srcset="${srcset}" sizes="${sizes}"
-        width="${largest.w}" height="${h}" alt="${ALT[m.category](m.before)}"
+        width="${largest.w}" height="${h}" alt="${alt || ALT[m.category](m.before)}"
         loading="${loading}" decoding="async"${fetchpriority ? ` fetchpriority="${fetchpriority}"` : ''}>`;
 }
 
@@ -192,7 +197,8 @@ const SERVICES = [
       'Fillers, end panels and scribed crown returns',
       'Precision door, drawer and hardware alignment',
     ],
-    media: { type: 'photo', slug: 'kitchen-remodel-04' } },
+    media: { type: 'photo', slug: 'kitchen-remodel-04',
+      alt: 'Installed shaker kitchen cabinets with island and stone countertop on Cape Cod' } },
   { id: 'windows-and-doors', name: 'Windows and Doors Installation',
     blurb: 'Energy-efficient interior door replacements, entry door upgrades, and precision window installations.',
     highlights: [
@@ -200,7 +206,8 @@ const SERVICES = [
       'Entry and exterior door upgrades',
       'Window installation with interior and exterior trim',
     ],
-    media: { type: 'photo', slug: 'finish-carpentry-02' } },
+    media: { type: 'photo', slug: 'finish-carpentry-02',
+      alt: 'Trimmed window with a built-in seat below it in a Cape Cod home' } },
   { id: 'interior-painting', name: 'Interior Painting',
     blurb: 'Smooth, crisp interior painting with complete wall preparation and full furniture protection.',
     highlights: [
@@ -208,7 +215,8 @@ const SERVICES = [
       'Complete floor and furniture protection',
       'Walls, ceilings, trim, doors and closets',
     ],
-    media: { type: 'photo', slug: 'interior-remodel-04' } },
+    media: { type: 'photo', slug: 'interior-remodel-04',
+      alt: 'Freshly painted open-plan kitchen and living room on Cape Cod' } },
   { id: 'exterior-painting', name: 'Exterior Painting',
     blurb: 'Weather-resistant exterior paint applications tailored to withstand coastal salt air and severe winter weather.',
     highlights: [
@@ -232,7 +240,8 @@ const SERVICES = [
       'Seasonal rental and turnover cleaning',
       'Included at no extra charge on every project we build',
     ],
-    media: { type: 'photo', slug: 'interior-remodel-03' } },
+    media: { type: 'photo', slug: 'interior-remodel-03',
+      alt: 'Cape Cod living room left clean and clear after construction work' } },
 ];
 
 const REASONS = [
@@ -356,7 +365,12 @@ const business = {
   logo: SITE_URL + '/assets/img/logo/logo-color.webp',
   description:
     'Family-owned carpentry, remodeling, painting and cleaning company serving Cape Cod homeowners, realtors and property managers. 20 years of experience, fully insured.',
-  founder: { '@type': 'Person', name: 'Marco Aurelio' },
+  /* Escaped, not a literal accented character: this file has already been
+     through one encoding accident, and the escape produces the right
+     character whatever the file ends up saved as. The visible copy spells
+     the name with the accent, so the schema has to agree — structured data
+     that contradicts the page is worse than no structured data. */
+  founder: { '@type': 'Person', name: 'Marco Aurélio' },
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'West Yarmouth',
@@ -623,7 +637,15 @@ ${extra ? `
                 </div>
 
                 <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
-                <p class="form-note">We only use your details to reply about your project. No newsletters, no third parties.</p>
+                ${/* The old note ended "no newsletters, no third parties".
+                      That stopped being true the moment the form started
+                      mirroring leads to the agency collector, and it sat 20px
+                      from the submit button. The promise a homeowner actually
+                      cares about — we do not sell you on — is kept, because it
+                      is still true. Processors are named on /privacy/.
+                      Written as a JS comment, not an HTML one: an HTML comment
+                      would ship to production repeating the claim we removed. */ ''}
+                <p class="form-note">We only use your details to reply about your project. No newsletters, and we never sell your information. See our <a href="/privacy/">privacy policy</a>.</p>
               </form>`;
 }
 
@@ -679,7 +701,14 @@ ${trustBand()}
         <div class="contact-card">
           <div class="about-grid">
             <figure class="about-grid__media">
-              ${img('finish-carpentry-02', { sizes: '(min-width:900px) 40vw, 100vw' })}
+              ${/* Was finish-carpentry-02, which also illustrates the Windows
+                    and Doors slide further down the same page. In a site whose
+                    entire proof is 25 photos, showing one of them twice in a
+                    single scroll costs credibility. */ ''}
+              ${img('bathroom-remodel-12', {
+                sizes: '(min-width:900px) 40vw, 100vw',
+                alt: 'Finished double vanity and shiplap bathroom handed back clean on Cape Cod',
+              })}
             </figure>
 
             <div class="about-grid__text">
@@ -721,7 +750,7 @@ ${SERVICES.map((s, i) => {
                 <figure class="slide__media">
                   ${
                     s.media.type === 'photo'
-                      ? img(s.media.slug, { sizes })
+                      ? img(s.media.slug, { sizes, alt: s.media.alt })
                       : stockImg(s.media.slug, s.media.alt, sizes)
                   }
                 </figure>
@@ -911,4 +940,9 @@ fs.writeFileSync(path.join(SITE, 'index.html'), html);
 console.log('index.html -', (html.length / 1024).toFixed(1), 'KB |', galleryItems.length, 'gallery figures');
 
 module.exports = { head, header, footer, btn, img, stockImg, estimateForm, estimatePath,
-  bySlug, ARROW, CHECK, SERVICES, FAQS, SITE_URL, PHONE_DISPLAY, PHONE_HREF, EMAIL, TOWNS };
+  bySlug, ARROW, CHECK, SERVICES, FAQS, SITE_URL, PHONE_DISPLAY, PHONE_HREF, EMAIL, TOWNS,
+  /* Exported so pages that build their own <script> tag — /redirect/ does,
+     because it has no footer() — still get the content hash. Without it,
+     .htaccess would cache that page's main.js for a year with no way to
+     invalidate it. */
+  JS_V };

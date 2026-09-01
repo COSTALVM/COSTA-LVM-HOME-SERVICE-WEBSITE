@@ -12,4 +12,4 @@ generated: 2026-09-01
 
 Tell us what you need, where the property is, and when you would like the work done. COSTA LVM replies the same working day.
 
-We only use your details to reply about your project. No newsletters, no third parties.
+We only use your details to reply about your project. No newsletters, and we never sell your information. See our [privacy policy](/privacy/).
