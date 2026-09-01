@@ -25,8 +25,13 @@ const manifest = JSON.parse(
 );
 
 const SITE_URL = 'https://costalvmhomeservice.com';
-const PHONE_DISPLAY = '(551) 508-3606';
-const PHONE_HREF = '+15515083606';
+/* Changed 2026-09-02 from (551) 508-3606. 551 is a New Jersey area code on a
+   business that sells itself as local to Cape Cod for 20 years; 508 is the
+   Cape's own. Every page, the schema and the JS fallback messages read from
+   these two constants — except main.js, which is not generated and carries
+   its own copy. */
+const PHONE_DISPLAY = '(508) 360-6603';
+const PHONE_HREF = '+15083606603';
 const EMAIL = 'contact@costalvmhomeservice.com';
 const WEB3FORMS_ACCESS_KEY = '65ccf5e7-7263-4915-bcfd-96dcea32afcf';
 const GTM_ID = 'GTM-5KW7DQSS';

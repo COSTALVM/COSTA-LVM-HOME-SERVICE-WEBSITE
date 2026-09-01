@@ -167,7 +167,7 @@
       if (!key || !key.value || key.value.indexOf("REPLACE") === 0) {
         setStatus(
           "error",
-          "This form isn't connected yet. Please call us on (551) 508-3606."
+          "This form isn't connected yet. Please call us on (508) 360-6603."
         );
         return;
       }
@@ -210,7 +210,7 @@
         .catch(function () {
           setStatus(
             "error",
-            "That didn't send. Call us on (551) 508-3606 or email contact@costalvmhomeservice.com and we'll pick it up from there."
+            "That didn't send. Call us on (508) 360-6603 or email contact@costalvmhomeservice.com and we'll pick it up from there."
           );
           if (submitBtn) submitBtn.disabled = false;
         });

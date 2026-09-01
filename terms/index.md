@@ -36,4 +36,4 @@ The website is provided as available. COSTA LVM works to keep information accura
 
 ## Contact
 
-Questions about these terms can be sent to [contact@costalvmhomeservice.com](mailto:contact@costalvmhomeservice.com) or handled by phone at (551) 508-3606.
+Questions about these terms can be sent to [contact@costalvmhomeservice.com](mailto:contact@costalvmhomeservice.com) or handled by phone at (508) 360-6603.
