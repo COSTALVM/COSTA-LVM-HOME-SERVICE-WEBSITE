@@ -1,15 +1,15 @@
 [
   {
-    "slug": "exterior-painting",
+    "slug": "exterior-painting-colonial",
     "source": "Pexels",
-    "photo_id": "31608472",
-    "url": "https://www.pexels.com/photo/31608472/",
+    "photo_id": "34933247",
+    "url": "https://www.pexels.com/photo/34933247/",
     "license": "Pexels License - free for commercial use, no attribution required",
     "natural": {
       "w": 1600,
-      "h": 1609
+      "h": 1067
     },
-    "note": "Painter on a ladder applying paint to an exterior wall."
+    "note": "Clapboard colonial in Salem, Massachusetts - black shutters, white trim, picket fence. Replaced photo 31608472 on 2026-09-02: that one was shot on a rendered building with a lashed bamboo ladder and a competitor-irrelevant paint brand on the bucket, and read nothing like Cape Cod."
   },
   {
     "slug": "power-washing",
@@ -21,7 +21,7 @@
       "w": 1600,
       "h": 2133
     },
-    "note": "Pressure washing white clapboard siding."
+    "note": "Pressure washing white clapboard siding. New England house, autumn light - this one sets the bar for the rest of the set."
   },
   {
     "slug": "house-cleaning",
@@ -34,5 +34,41 @@
       "h": 1067
     },
     "note": "Wet/dry vacuum and protective coveralls on a tiled floor - reads as post-construction cleanup."
+  },
+  {
+    "slug": "windows-doors",
+    "source": "Pexels",
+    "photo_id": "5691531",
+    "url": "https://www.pexels.com/photo/5691531/",
+    "license": "Pexels License - free for commercial use, no attribution required",
+    "natural": {
+      "w": 1600,
+      "h": 1068
+    },
+    "note": "Workman lifting a white window sash into place in a bare room. Shot from behind, no identifiable face."
+  },
+  {
+    "slug": "kitchen-cabinets",
+    "source": "Pexels",
+    "photo_id": "38934134",
+    "url": "https://www.pexels.com/photo/38934134/",
+    "license": "Pexels License - free for commercial use, no attribution required",
+    "natural": {
+      "w": 1600,
+      "h": 2400
+    },
+    "note": "Caulking an installed upper cabinet, tool belt and drop sheet in frame. Chosen over a finished-kitchen shot so the card does not repeat the Kitchen Remodel slide."
+  },
+  {
+    "slug": "interior-painting",
+    "source": "Pexels",
+    "photo_id": "5493653",
+    "url": "https://www.pexels.com/photo/5493653/",
+    "license": "Pexels License - free for commercial use, no attribution required",
+    "natural": {
+      "w": 1600,
+      "h": 2400
+    },
+    "note": "Painter in whites rolling a ceiling with an extension pole in an empty room. Reads contractor, not weekend DIY."
   }
 ]

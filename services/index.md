@@ -2,7 +2,7 @@
 title: Remodeling & Carpentry Services on Cape Cod | Free Estimate
 description: Nine trades, one crew: bathroom and kitchen remodels, cabinets, windows, doors, painting and post-construction cleaning on Cape Cod. Free estimate.
 canonical: https://costalvmhomeservice.com/services/
-generated: 2026-09-01
+generated: 2026-09-02
 ---
 
 - [Home](../)

@@ -2,7 +2,7 @@
 title: Terms of Use | COSTA LVM Home Service
 description: Website terms of use for COSTA LVM Home Service.
 canonical: https://costalvmhomeservice.com/terms/
-generated: 2026-09-01
+generated: 2026-09-02
 ---
 
 - [Home](../)

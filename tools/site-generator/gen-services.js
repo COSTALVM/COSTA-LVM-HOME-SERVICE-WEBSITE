@@ -65,7 +65,8 @@ const DETAIL = [
   {
     id: 'kitchen-cabinets',
     name: 'Kitchen Cabinets',
-    media: { type: 'photo', slug: 'kitchen-remodel-04' },
+    media: { type: 'stock', slug: 'kitchen-cabinets',
+      alt: 'Cabinet installer caulking an upper kitchen cabinet into place' },
     body: [
       'Cabinets are only as good as the install. A run of boxes that is a quarter-inch out of level will show on every door gap along the wall, and no amount of hardware adjustment hides it. We set a laser line, shim off the high point of the floor, and fasten into studs before a single door goes back on.',
       'We install stock, semi-custom and supplier-provided cabinetry, fit fillers and end panels so nothing reads as a gap, align every pull and knob off the same jig, and scribe the crown to a ceiling that is rarely as flat as it looks. If you have already bought cabinets from a supplier, we are happy to be the crew that hangs them properly.',
@@ -82,7 +83,8 @@ const DETAIL = [
   {
     id: 'windows-and-doors',
     name: 'Windows and Doors Installation',
-    media: { type: 'photo', slug: 'finish-carpentry-02' },
+    media: { type: 'stock', slug: 'windows-doors',
+      alt: 'Installer lifting a new window sash into its opening' },
     body: [
       'Doors and windows are carpentry problems disguised as product purchases. An interior door that binds in August and rattles in February was hung out of plumb, not built wrong. We hang doors to the jamb rather than to the wall, shim the hinge side true, and set the reveal even top to bottom before the casing goes on.',
       'On windows, the detail that matters on the Cape is what happens at the trim and the sill &mdash; where wind-driven rain and salt air get in if the flashing and the caulk line are sloppy. We replace interior doors, upgrade entry doors, and install and trim windows, then paint or stain the casing to match the rest of the room.',
@@ -99,7 +101,8 @@ const DETAIL = [
   {
     id: 'interior-painting',
     name: 'Interior Painting',
-    media: { type: 'photo', slug: 'interior-remodel-04' },
+    media: { type: 'stock', slug: 'interior-painting',
+      alt: 'Painter in whites rolling a ceiling with an extension pole in an empty room' },
     body: [
       'Most of a good paint job happens before any paint is opened. We fill, sand and caulk first, mask the floors and cover the furniture, tape off the trim line, and only then start cutting in. Sprayed work gets full containment so the dust and overspray stay in the room they belong in.',
       'Because we also do the cleaning, the end of a paint job looks different from what most homeowners are used to: tape pulled while the paint is still workable so the line stays sharp, plastic and drop cloths bagged out, and the floors vacuumed and wiped before we leave. Ceilings, walls, trim, doors and closets &mdash; and we will tell you honestly when a room needs primer rather than a third coat.',
@@ -116,7 +119,8 @@ const DETAIL = [
   {
     id: 'exterior-painting',
     name: 'Exterior Painting',
-    media: { type: 'stock', slug: 'exterior-painting', alt: 'Exterior house painting on a residential wall' },
+    media: { type: 'stock', slug: 'exterior-painting-colonial',
+      alt: 'Freshly painted clapboard colonial with black shutters and white trim in Massachusetts' },
     body: [
       'Coastal exposure is hard on paint. Salt air, summer humidity and New England freeze-thaw cycles will find every unsealed end grain and every bare nail head, and a coat applied over a poorly prepared surface will start lifting inside two seasons.',
       'We scrape and sand back to sound material, spot-prime bare wood, re-caulk the joints that have opened, and use exterior products rated for coastal conditions. We paint clapboard, shingle, trim, soffits, doors and railings, and we schedule exterior work for the window where temperature and humidity will let the paint cure properly &mdash; late spring through autumn on the Cape.',
@@ -150,7 +154,8 @@ const DETAIL = [
   {
     id: 'house-cleaning',
     name: 'House Cleaning',
-    media: { type: 'photo', slug: 'interior-remodel-03' },
+    media: { type: 'stock', slug: 'house-cleaning',
+      alt: 'Post-construction deep clean with a wet/dry vacuum on a tiled floor' },
     body: [
       'This is the service that changed how we work. Construction dust does not stay in the room it was made in &mdash; it settles on top of door casings, inside light fixtures and in the tracks of every window, and a general contractor who hands the keys back at that point has left you half a job.',
       'Our crew does a full post-construction clean at the end of every project: dust removal from every horizontal surface, fixtures and vents wiped, floors vacuumed and washed, windows and tracks cleaned. We also take on standalone deep cleans and rental turnovers, which is what most property managers on the Cape actually call us for between bookings.',
@@ -364,7 +369,7 @@ const redirectPage = `${head({
     <section class="redirect-hero" aria-label="COSTA LVM quick links">
       <div class="redirect-card">
         <img src="../assets/img/logo/logo-white.webp" alt="COSTA LVM Home Service" width="300" height="146">
-        <h1>Meticulous carpentry, remodeling &amp; cleaning across Cape Cod</h1>
+        <h1>Professional carpentry, remodeling &amp; cleaning across Cape Cod</h1>
         ${/* Short enough to survive on a 530px-tall in-app browser, which is
               where most of this traffic lands. The long version was being
               hidden by a media query — which removed the only reason to trust

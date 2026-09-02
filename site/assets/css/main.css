@@ -2147,7 +2147,7 @@ textarea {
   z-index: -2;
   background:
     linear-gradient(180deg, rgba(4, 4, 4, 0.56), rgba(4, 4, 4, 0.88)),
-    url("../video/hero-poster-desktop.webp") center / cover;
+    url("../video/hero-poster-desktop-v2.webp") center / cover;
   filter: grayscale(1) contrast(1.05);
   transform: scale(1.04);
 }

@@ -2,7 +2,7 @@
 title: Privacy Policy | COSTA LVM Home Service
 description: Privacy policy for COSTA LVM Home Service, including how estimate request information is collected and used.
 canonical: https://costalvmhomeservice.com/privacy/
-generated: 2026-09-01
+generated: 2026-09-02
 ---
 
 - [Home](../)

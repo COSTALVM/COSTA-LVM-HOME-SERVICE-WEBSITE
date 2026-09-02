@@ -24,6 +24,14 @@ const manifest = JSON.parse(
   fs.readFileSync(path.join(SITE, 'assets', 'img', 'gallery', 'manifest.json'), 'utf8')
 );
 
+/* The stock set carries its licence trail in CREDITS.json, and that file is
+   also the only place the source dimensions are written down — so stockImg
+   reads its width/height from here instead of guessing. */
+const stockCredits = JSON.parse(
+  fs.readFileSync(path.join(SITE, 'assets', 'img', 'services', 'CREDITS.json'), 'utf8')
+);
+const stockBySlug = Object.fromEntries(stockCredits.map((c) => [c.slug, c]));
+
 const SITE_URL = 'https://costalvmhomeservice.com';
 /* Changed 2026-09-02 from (551) 508-3606. 551 is a New Jersey area code on a
    business that sells itself as local to Cape Cod for 20 years; 508 is the
@@ -158,11 +166,20 @@ function img(slug, { sizes, loading = 'lazy', fetchpriority, prefix = '', alt })
         loading="${loading}" decoding="async"${fetchpriority ? ` fetchpriority="${fetchpriority}"` : ''}>`;
 }
 
+/* width/height used to be hard-coded 1440x1080 for every stock image, but only
+   one of the three was 4:3 — the browser reserved the wrong box for the other
+   two and the page shifted when they decoded. The real aspect comes from
+   CREDITS.json now. */
 function stockImg(slug, alt, sizes, prefix = '') {
+  const c = stockBySlug[slug];
+  if (!c) throw new Error('unknown stock asset: ' + slug);
   const base = prefix + 'assets/img/services/';
-  const srcset = [480, 960, 1440].map((w) => `${base}${slug}-${w}.webp ${w}w`).join(', ');
+  const widths = [480, 960, 1440];
+  const srcset = widths.map((w) => `${base}${slug}-${w}.webp ${w}w`).join(', ');
+  const largest = widths[widths.length - 1];
+  const h = Math.round((largest / c.natural.w) * c.natural.h);
   return `<img src="${base}${slug}-960.webp" srcset="${srcset}" sizes="${sizes}"
-          width="1440" height="1080" alt="${alt}" loading="lazy" decoding="async">`;
+          width="${largest}" height="${h}" alt="${alt}" loading="lazy" decoding="async">`;
 }
 
 /* ---------------- services (copy verbatim from the approved one-pager) --------------- */
@@ -178,7 +195,10 @@ const SERVICES = [
       'Custom niches, benches and built-in linen storage',
       'Vanities, countertops, mirrors and fixtures',
     ],
-    media: { type: 'photo', slug: 'bathroom-remodel-31' } },
+    /* Changed 2026-09-02 from bathroom-remodel-31 — the client picked this
+       shot (double vanity, 1200x1600 original) for the card. -31 stays in
+       the gallery. */
+    media: { type: 'photo', slug: 'bathroom-remodel-26' } },
   { id: 'kitchen-remodel', name: 'Kitchen Remodel',
     blurb: 'Full kitchen transformations, layout enhancements, tile backsplashes, and functional upgrades.',
     highlights: [
@@ -202,8 +222,11 @@ const SERVICES = [
       'Fillers, end panels and scribed crown returns',
       'Precision door, drawer and hardware alignment',
     ],
-    media: { type: 'photo', slug: 'kitchen-remodel-04',
-      alt: 'Installed shaker kitchen cabinets with island and stone countertop on Cape Cod' } },
+    /* 2026-09-02: was kitchen-remodel-04, a finished kitchen from the same
+       shoot as the Kitchen Remodel slide two cards up — the row read as the
+       same room twice. Stock showing the install itself separates them. */
+    media: { type: 'stock', slug: 'kitchen-cabinets',
+      alt: 'Cabinet installer caulking an upper kitchen cabinet into place' } },
   { id: 'windows-and-doors', name: 'Windows and Doors Installation',
     blurb: 'Energy-efficient interior door replacements, entry door upgrades, and precision window installations.',
     highlights: [
@@ -211,8 +234,11 @@ const SERVICES = [
       'Entry and exterior door upgrades',
       'Window installation with interior and exterior trim',
     ],
-    media: { type: 'photo', slug: 'finish-carpentry-02',
-      alt: 'Trimmed window with a built-in seat below it in a Cape Cod home' } },
+    /* 2026-09-02: was finish-carpentry-02, which is a built-in window seat —
+       a bench, not a window or a door. The card sold one service and showed
+       another. */
+    media: { type: 'stock', slug: 'windows-doors',
+      alt: 'Installer lifting a new window sash into its opening' } },
   { id: 'interior-painting', name: 'Interior Painting',
     blurb: 'Smooth, crisp interior painting with complete wall preparation and full furniture protection.',
     highlights: [
@@ -220,8 +246,11 @@ const SERVICES = [
       'Complete floor and furniture protection',
       'Walls, ceilings, trim, doors and closets',
     ],
-    media: { type: 'photo', slug: 'interior-remodel-04',
-      alt: 'Freshly painted open-plan kitchen and living room on Cape Cod' } },
+    /* 2026-09-02: was interior-remodel-04 — an empty finished room, no paint
+       work visible, and the near-identical -03 was carrying the House
+       Cleaning card at the same time. */
+    media: { type: 'stock', slug: 'interior-painting',
+      alt: 'Painter in whites rolling a ceiling with an extension pole in an empty room' } },
   { id: 'exterior-painting', name: 'Exterior Painting',
     blurb: 'Weather-resistant exterior paint applications tailored to withstand coastal salt air and severe winter weather.',
     highlights: [
@@ -229,7 +258,12 @@ const SERVICES = [
       'Coatings rated for coastal salt-air exposure',
       'Clapboard, shingle, trim, soffits and railings',
     ],
-    media: { type: 'stock', slug: 'exterior-painting', alt: 'Exterior house painting on a residential wall' } },
+    /* 2026-09-02: the old stock was a painter on a lashed bamboo ladder
+       against a rendered wall, with another paint company's brand on the
+       bucket. Nothing about it said New England. This one is a clapboard
+       colonial in Salem, MA. */
+    media: { type: 'stock', slug: 'exterior-painting-colonial',
+      alt: 'Freshly painted clapboard colonial with black shutters and white trim in Massachusetts' } },
   { id: 'power-washing', name: 'Power Washing',
     blurb: 'High-pressure exterior cleaning to restore siding, decks, driveways, walkways, and patios.',
     highlights: [
@@ -245,8 +279,12 @@ const SERVICES = [
       'Seasonal rental and turnover cleaning',
       'Included at no extra charge on every project we build',
     ],
-    media: { type: 'photo', slug: 'interior-remodel-03',
-      alt: 'Cape Cod living room left clean and clear after construction work' } },
+    /* 2026-09-02: was interior-remodel-03, an empty finished room with no
+       cleaning in it. The house-cleaning stock had been sitting unused in
+       assets/img/services since the first build — this card is what it was
+       cut for. */
+    media: { type: 'stock', slug: 'house-cleaning',
+      alt: 'Post-construction deep clean with a wet/dry vacuum on a tiled floor' } },
 ];
 
 const REASONS = [
@@ -674,22 +712,30 @@ const html = `${head({
     <!-- ================= HERO ================= -->
     <section class="hero">
       <div class="hero__media">
+        ${/* 2026-09-02, both cuts replaced because the banner read blurry.
+             Phone: was published at 720x1280 from a 1080x1920 master, now
+             native 1080x1920. Desktop: the old file was a 640x360 clip
+             upscaled to 720p — no encode fixes that — so the client sent a
+             new cut that is real 1280x720.
+             New filenames rather than new bytes under the old ones: .htaccess
+             caches media for a month, so a returning visitor would otherwise
+             keep the blurry version until it expired. */''}
         <picture>
-          <source media="(max-width: 760px)" srcset="assets/video/hero-poster-mobile.webp">
-          <img src="assets/video/hero-poster-desktop.webp" alt="" aria-hidden="true"
+          <source media="(max-width: 760px)" srcset="assets/video/hero-poster-mobile-1080.webp">
+          <img src="assets/video/hero-poster-desktop-v2.webp" alt="" aria-hidden="true"
                width="1280" height="720" fetchpriority="high" decoding="async">
         </picture>
         <video class="hero__video" id="hero-video" muted loop playsinline preload="none"
                aria-hidden="true" tabindex="-1"
-               data-src-desktop="assets/video/hero-desktop.mp4"
-               data-src-mobile="assets/video/hero-mobile.mp4"></video>
+               data-src-desktop="assets/video/hero-desktop-v2.mp4"
+               data-src-mobile="assets/video/hero-mobile-1080.mp4"></video>
       </div>
       <div class="hero__scrim"></div>
 
       <div class="container">
         <div class="hero__copy">
-          <h1 class="h-hero">Meticulous carpentry, remodeling &amp; cleaning <span class="gold">across Cape Cod</span></h1>
-          <p class="hero__sub">20 years of craftsmanship, family-owned dedication, and total property protection, delivering pristine remodels and spotless finishes from Barnstable to Plymouth.</p>
+          <h1 class="h-hero">Professional carpentry, remodeling &amp; cleaning <span class="gold">across Cape Cod</span></h1>
+          <p class="hero__sub">20 years of craftsmanship, family-owned dedication, and total property protection, delivering quality remodels and finishes from Barnstable to Plymouth.</p>
           <div class="btn-row">
             ${btn(estimatePath(), 'Get your free estimate')}
             ${btn('tel:' + PHONE_HREF, 'Call ' + PHONE_DISPLAY, 'ghost')}
