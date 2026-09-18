@@ -2,7 +2,7 @@
 title: Cape Cod Remodeling & Carpentry — Free Estimate | COSTA LVM
 description: Family-owned, fully insured, 20 years on Cape Cod. Remodels, finish carpentry and post-construction cleanup, Barnstable to Plymouth. Free estimate.
 canonical: https://costalvmhomeservice.com/
-generated: 2026-09-02
+generated: 2026-09-18
 ---
 
 # Professional carpentry, remodeling & cleaning across Cape Cod
@@ -16,7 +16,7 @@ generated: 2026-09-02
 
 ## We treat your house like someone still lives in it
 
-COSTA LVM Home Service is a family-owned company built on two decades of hands-on experience in Cape Cod. Led by Marco Aurélio, we treat every residence with the utmost respect, care, and attention to detail.
+COSTA LVM Home Service is a family-owned company built on two decades of hands-on experience in Cape Cod. Led by Marco Aurélio and Larissa Costa, we treat every residence with the utmost respect, care, and attention to detail.
 
 Unlike contractors who leave dirt and dust behind, we combine skilled finish carpentry and remodeling with professional interior cleanup. We protect your furniture, safeguard your floors, and maintain an organized workspace from start to finish. Whether you are a homeowner upgrading your living space, a realtor preparing a listing, or a property manager maintaining seasonal turnarounds, we deliver reliable results with complete integrity.
 

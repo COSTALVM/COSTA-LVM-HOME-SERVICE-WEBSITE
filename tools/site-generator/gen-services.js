@@ -31,7 +31,7 @@ const DETAIL = [
   {
     id: 'kitchen-remodel',
     name: 'Kitchen Remodel',
-    media: { type: 'photo', slug: 'kitchen-remodel-06' },
+    media: { type: 'photo', slug: 'kitchen-remodel-05' },
     body: [
       'Kitchens are the job where sequencing matters most, because every trade waits on the one before it. Running the carpentry, the painting and the final clean with one crew is what keeps a kitchen from sitting half-finished for three weeks while you wash dishes in the bathroom.',
       'We take kitchens from demolition through to the last piece of trim: cabinets set and shimmed level, countertops templated and fitted, backsplash tiled, appliances placed, crown returns cut to the ceiling line. If the layout is wrong, we say so before the order goes in &mdash; moving a peninsula or opening a wall to the living room is often worth more than upgrading the cabinet doors.',
@@ -65,8 +65,8 @@ const DETAIL = [
   {
     id: 'kitchen-cabinets',
     name: 'Kitchen Cabinets',
-    media: { type: 'stock', slug: 'kitchen-cabinets',
-      alt: 'Cabinet installer caulking an upper kitchen cabinet into place' },
+    media: { type: 'photo', slug: 'kitchen-remodel-06',
+      alt: 'Completed kitchen cabinet installation on Cape Cod by COSTA LVM Home Service' },
     body: [
       'Cabinets are only as good as the install. A run of boxes that is a quarter-inch out of level will show on every door gap along the wall, and no amount of hardware adjustment hides it. We set a laser line, shim off the high point of the floor, and fasten into studs before a single door goes back on.',
       'We install stock, semi-custom and supplier-provided cabinetry, fit fillers and end panels so nothing reads as a gap, align every pull and knob off the same jig, and scribe the crown to a ceiling that is rarely as flat as it looks. If you have already bought cabinets from a supplier, we are happy to be the crew that hangs them properly.',
@@ -259,7 +259,7 @@ ${s.bullets.map((b) => `              <li>${b}</li>`).join('\n')}
           <figure class="service-detail__figure" style="margin:0">
             ${
               s.media.type === 'photo'
-                ? img(s.media.slug, { sizes: '(min-width:880px) 46vw, 100vw', prefix: '../' })
+                ? img(s.media.slug, { sizes: '(min-width:880px) 46vw, 100vw', prefix: '../', alt: s.media.alt })
                 : stockImg(s.media.slug, s.media.alt, '(min-width:880px) 46vw, 100vw', '../')
             }
           </figure>

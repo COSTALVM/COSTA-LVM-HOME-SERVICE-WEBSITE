@@ -65,7 +65,7 @@ const ALT = {
   'kitchen-remodel': (b) => b
     ? 'Cape Cod kitchen photographed before renovation by COSTA LVM Home Service'
     : 'Completed kitchen remodel on Cape Cod by COSTA LVM Home Service',
-  'kitchen-cabinets': () => 'Kitchen cabinet installation in progress on Cape Cod by COSTA LVM Home Service',
+  'kitchen-cabinets': () => 'Completed kitchen cabinet installation on Cape Cod by COSTA LVM Home Service',
   'finish-carpentry': () => 'Custom built-ins and finish carpentry on Cape Cod by COSTA LVM Home Service',
   'interior-painting': () => 'Interior painting with floors and furniture fully protected by COSTA LVM Home Service',
   'windows-doors': () => 'Interior door and window trim installation on Cape Cod by COSTA LVM Home Service',
@@ -206,7 +206,7 @@ const SERVICES = [
       'Countertops and tile backsplashes',
       'Layout changes and opening walls to living space',
     ],
-    media: { type: 'photo', slug: 'kitchen-remodel-06' } },
+    media: { type: 'photo', slug: 'kitchen-remodel-05' } },
   { id: 'interior-finish-carpentry', name: 'Interior Finish Carpentry',
     blurb: 'Millimeter-precise crown molding, baseboards, wainscoting, trim work, and custom architectural details.',
     highlights: [
@@ -222,11 +222,10 @@ const SERVICES = [
       'Fillers, end panels and scribed crown returns',
       'Precision door, drawer and hardware alignment',
     ],
-    /* 2026-09-02: was kitchen-remodel-04, a finished kitchen from the same
-       shoot as the Kitchen Remodel slide two cards up — the row read as the
-       same room twice. Stock showing the install itself separates them. */
-    media: { type: 'stock', slug: 'kitchen-cabinets',
-      alt: 'Cabinet installer caulking an upper kitchen cabinet into place' } },
+    /* 2026-09-18: replaced the stock installation photo with a sharper
+       finished kitchen from COSTA LVM's own work. */
+    media: { type: 'photo', slug: 'kitchen-remodel-06',
+      alt: 'Completed kitchen cabinet installation on Cape Cod by COSTA LVM Home Service' } },
   { id: 'windows-and-doors', name: 'Windows and Doors Installation',
     blurb: 'Energy-efficient interior door replacements, entry door upgrades, and precision window installations.',
     highlights: [
@@ -413,7 +412,10 @@ const business = {
      character whatever the file ends up saved as. The visible copy spells
      the name with the accent, so the schema has to agree — structured data
      that contradicts the page is worse than no structured data. */
-  founder: { '@type': 'Person', name: 'Marco Aurélio' },
+  founder: [
+    { '@type': 'Person', name: 'Marco Costa' },
+    { '@type': 'Person', name: 'Larissa Costa' },
+  ],
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'West Yarmouth',
@@ -765,7 +767,7 @@ ${trustBand()}
             <div class="about-grid__text">
               <h2 class="h-section">We treat your house like <span class="gold">someone still lives in it</span></h2>
               <div class="prose">
-                <p>COSTA LVM Home Service is a family-owned company built on two decades of hands-on experience in Cape Cod. Led by Marco Aur&eacute;lio, we treat every residence with the utmost respect, care, and attention to detail.</p>
+                <p>COSTA LVM Home Service is a family-owned company built on two decades of hands-on experience in Cape Cod. Led by Marco Aur&eacute;lio and Larissa Costa, we treat every residence with the utmost respect, care, and attention to detail.</p>
                 <p>Unlike contractors who leave dirt and dust behind, we combine skilled finish carpentry and remodeling with professional interior cleanup. We protect your furniture, safeguard your floors, and maintain an organized workspace from start to finish. Whether you are a homeowner upgrading your living space, a realtor preparing a listing, or a property manager maintaining seasonal turnarounds, we deliver reliable results with complete integrity.</p>
               </div>
               <div class="btn-row" style="margin-top:var(--sp-2)">
