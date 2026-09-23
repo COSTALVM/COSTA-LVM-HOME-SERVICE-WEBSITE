@@ -767,7 +767,7 @@ ${trustBand()}
             <div class="about-grid__text">
               <h2 class="h-section">We treat your house like <span class="gold">someone still lives in it</span></h2>
               <div class="prose">
-                <p>COSTA LVM Home Service is a family-owned company built on two decades of hands-on experience in Cape Cod. Led by Marco Aur&eacute;lio and Larissa Costa, we treat every residence with the utmost respect, care, and attention to detail.</p>
+                <p>COSTA LVM Home Service is a family-owned company built on two decades of hands-on experience in Cape Cod. Led by Marco Costa and Larissa Costa, we treat every residence with the utmost respect, care, and attention to detail.</p>
                 <p>Unlike contractors who leave dirt and dust behind, we combine skilled finish carpentry and remodeling with professional interior cleanup. We protect your furniture, safeguard your floors, and maintain an organized workspace from start to finish. Whether you are a homeowner upgrading your living space, a realtor preparing a listing, or a property manager maintaining seasonal turnarounds, we deliver reliable results with complete integrity.</p>
               </div>
               <div class="btn-row" style="margin-top:var(--sp-2)">
