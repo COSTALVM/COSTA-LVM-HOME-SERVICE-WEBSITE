@@ -576,5 +576,153 @@
         "file": "bathroom-remodel-34-960.webp"
       }
     ]
+  },
+  {
+    "idx": 69,
+    "slug": "client-kitchen-after-01",
+    "category": "kitchen-remodel",
+    "before": false,
+    "orientation": "portrait",
+    "natural": {
+      "w": 768,
+      "h": 1024
+    },
+    "source": "WhatsApp Image 2026-09-19 at 17.03.13.jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "client-kitchen-after-01-480.webp"
+      },
+      {
+        "w": 768,
+        "file": "client-kitchen-after-01-768.webp"
+      }
+    ]
+  },
+  {
+    "idx": 70,
+    "slug": "client-kitchen-after-02",
+    "category": "kitchen-remodel",
+    "before": false,
+    "orientation": "portrait",
+    "natural": {
+      "w": 768,
+      "h": 1024
+    },
+    "source": "WhatsApp Image 2026-09-19 at 17.03.49.jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "client-kitchen-after-02-480.webp"
+      },
+      {
+        "w": 768,
+        "file": "client-kitchen-after-02-768.webp"
+      }
+    ]
+  },
+  {
+    "idx": 71,
+    "slug": "client-interior-before",
+    "category": "interior-remodel",
+    "before": true,
+    "orientation": "landscape",
+    "natural": {
+      "w": 1206,
+      "h": 931
+    },
+    "source": "WhatsApp Image 2026-09-19 at 17.13.35.jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "client-interior-before-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "client-interior-before-960.webp"
+      },
+      {
+        "w": 1206,
+        "file": "client-interior-before-1206.webp"
+      }
+    ]
+  },
+  {
+    "idx": 72,
+    "slug": "client-kitchen-before-01",
+    "category": "kitchen-remodel",
+    "before": true,
+    "orientation": "landscape",
+    "natural": {
+      "w": 1206,
+      "h": 772
+    },
+    "source": "WhatsApp Image 2026-09-19 at 17.03.12.jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "client-kitchen-before-01-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "client-kitchen-before-01-960.webp"
+      },
+      {
+        "w": 1206,
+        "file": "client-kitchen-before-01-1206.webp"
+      }
+    ]
+  },
+  {
+    "idx": 73,
+    "slug": "client-kitchen-before-02",
+    "category": "kitchen-remodel",
+    "before": true,
+    "orientation": "landscape",
+    "natural": {
+      "w": 1206,
+      "h": 793
+    },
+    "source": "WhatsApp Image 2026-09-19 at 17.03.49 (1).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "client-kitchen-before-02-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "client-kitchen-before-02-960.webp"
+      },
+      {
+        "w": 1206,
+        "file": "client-kitchen-before-02-1206.webp"
+      }
+    ]
+  },
+  {
+    "idx": 74,
+    "slug": "client-interior-after",
+    "category": "interior-remodel",
+    "before": false,
+    "orientation": "landscape",
+    "natural": {
+      "w": 1206,
+      "h": 1174
+    },
+    "source": "WhatsApp Image 2026-09-19 at 17.13.35 (1).jpeg",
+    "srcset": [
+      {
+        "w": 480,
+        "file": "client-interior-after-480.webp"
+      },
+      {
+        "w": 960,
+        "file": "client-interior-after-960.webp"
+      },
+      {
+        "w": 1206,
+        "file": "client-interior-after-1206.webp"
+      }
+    ]
   }
 ]

@@ -4,7 +4,7 @@ const base = require('./gen-index.js');
 
 const { head, header, footer, btn, estimateForm, ARROW, CHECK, SITE_URL, PHONE_HREF, PHONE_DISPLAY, EMAIL, TOWNS, FAQS, img, stockImg, JS_V } = base;
 
-const ROOT = 'C:\\Users\\felipefreitas_trajet\\Desktop\\COSTA LVM HOME SERVICE';
+const ROOT = path.resolve(__dirname, '../..');
 const SITE = path.join(ROOT, 'site');
 
 /* Expanded copy. Grounded in the client's approved one-pager and in the photographed
@@ -31,7 +31,7 @@ const DETAIL = [
   {
     id: 'kitchen-remodel',
     name: 'Kitchen Remodel',
-    media: { type: 'photo', slug: 'kitchen-remodel-05' },
+    media: { type: 'photo', slug: 'client-kitchen-after-01' },
     body: [
       'Kitchens are the job where sequencing matters most, because every trade waits on the one before it. Running the carpentry, the painting and the final clean with one crew is what keeps a kitchen from sitting half-finished for three weeks while you wash dishes in the bathroom.',
       'We take kitchens from demolition through to the last piece of trim: cabinets set and shimmed level, countertops templated and fitted, backsplash tiled, appliances placed, crown returns cut to the ceiling line. If the layout is wrong, we say so before the order goes in &mdash; moving a peninsula or opening a wall to the living room is often worth more than upgrading the cabinet doors.',
@@ -65,7 +65,7 @@ const DETAIL = [
   {
     id: 'kitchen-cabinets',
     name: 'Kitchen Cabinets',
-    media: { type: 'photo', slug: 'kitchen-remodel-06',
+    media: { type: 'photo', slug: 'client-kitchen-after-02',
       alt: 'Completed kitchen cabinet installation on Cape Cod by COSTA LVM Home Service' },
     body: [
       'Cabinets are only as good as the install. A run of boxes that is a quarter-inch out of level will show on every door gap along the wall, and no amount of hardware adjustment hides it. We set a laser line, shim off the high point of the floor, and fasten into studs before a single door goes back on.',

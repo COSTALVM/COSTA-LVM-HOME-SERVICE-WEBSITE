@@ -1,5 +1,5 @@
 ﻿const http=require('http'),fs=require('fs'),path=require('path'),url=require('url');
-const ROOT='C:\\Users\\felipefreitas_trajet\\Desktop\\COSTA LVM HOME SERVICE\\site';
+const ROOT=path.resolve(__dirname,'../../site');
 const T={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.webp':'image/webp','.woff2':'font/woff2','.svg':'image/svg+xml','.xml':'application/xml','.txt':'text/plain; charset=utf-8','.json':'application/json','.jpg':'image/jpeg','.png':'image/png','.mp4':'video/mp4'};
 http.createServer((req,res)=>{
   let p=decodeURIComponent(url.parse(req.url).pathname);

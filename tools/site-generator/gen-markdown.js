@@ -10,7 +10,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const ROOT = 'C:\\Users\\felipefreitas_trajet\\Desktop\\COSTA LVM HOME SERVICE';
+const ROOT = path.resolve(__dirname, '../..');
 const SITE = path.join(ROOT, 'site');
 
 const PAGES = ['', 'services', 'estimate', 'privacy', 'terms', 'redirect'];

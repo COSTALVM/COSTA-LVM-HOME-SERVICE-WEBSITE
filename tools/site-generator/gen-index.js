@@ -2,7 +2,7 @@
 const path = require('path');
 const crypto = require('crypto');
 
-const ROOT = 'C:\\Users\\felipefreitas_trajet\\Desktop\\COSTA LVM HOME SERVICE';
+const ROOT = path.resolve(__dirname, '../..');
 const SITE = path.join(ROOT, 'site');
 
 /* Cache busting.
@@ -206,7 +206,7 @@ const SERVICES = [
       'Countertops and tile backsplashes',
       'Layout changes and opening walls to living space',
     ],
-    media: { type: 'photo', slug: 'kitchen-remodel-05' } },
+    media: { type: 'photo', slug: 'client-kitchen-after-01' } },
   { id: 'interior-finish-carpentry', name: 'Interior Finish Carpentry',
     blurb: 'Millimeter-precise crown molding, baseboards, wainscoting, trim work, and custom architectural details.',
     highlights: [
@@ -222,9 +222,8 @@ const SERVICES = [
       'Fillers, end panels and scribed crown returns',
       'Precision door, drawer and hardware alignment',
     ],
-    /* 2026-09-18: replaced the stock installation photo with a sharper
-       finished kitchen from COSTA LVM's own work. */
-    media: { type: 'photo', slug: 'kitchen-remodel-06',
+    /* Client-supplied finished kitchen photograph. */
+    media: { type: 'photo', slug: 'client-kitchen-after-02',
       alt: 'Completed kitchen cabinet installation on Cape Cod by COSTA LVM Home Service' } },
   { id: 'windows-and-doors', name: 'Windows and Doors Installation',
     blurb: 'Energy-efficient interior door replacements, entry door upgrades, and precision window installations.',
@@ -337,12 +336,18 @@ const FAQS = [
 /* Curated from the 2026-09-01 photo audit. The first batch deliberately includes
    before/after material so the transformation story appears before any click. */
 const CURATED_GALLERY_SLUGS = [
+  'client-kitchen-before-01',
+  'client-kitchen-after-01',
+  'client-kitchen-before-02',
+  'client-kitchen-after-02',
+  'bathroom-remodel-07-before',
+  'bathroom-remodel-12',
+  'client-interior-before',
+  'client-interior-after',
   'kitchen-remodel-01-before',
   'kitchen-remodel-06',
   'kitchen-remodel-02-before',
   'kitchen-remodel-04',
-  'bathroom-remodel-07-before',
-  'bathroom-remodel-12',
   'bathroom-remodel-22-before',
   'bathroom-remodel-26',
   'finish-carpentry-15',
@@ -380,8 +385,7 @@ const galleryHTML = galleryItems
   .map((m) => {
     const g = GROUP[m.category];
     return `        <figure data-category="${g.key}">
-          ${img(m.slug, { sizes: '(min-width:1100px) 285px, (min-width:700px) 33vw, 50vw' })}
-          ${m.before ? '<figcaption>Before</figcaption>' : ''}
+          ${img(m.slug, { sizes: '(min-width:1100px) 285px, (min-width:700px) 33vw, 50vw' })}${m.before ? '\n          <figcaption>Before</figcaption>' : ''}
         </figure>`;
   })
   .join('\n');
